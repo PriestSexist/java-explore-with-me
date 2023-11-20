@@ -12,31 +12,31 @@ import java.util.List;
 @Repository
 public interface StatServiceRepository extends JpaRepository<EndpointHit, Integer> {
 
-    @Query("select new ru.practicum.statdto.dto.ViewStatsDto(eh.app, eh.uri, count(eh.id)) " +
+    @Query("select new ru.practicum.statdto.dto.ViewStatsDto(eh.app, eh.uri, count(eh.ip)) " +
             "from EndpointHit as eh " +
             "where eh.timestamp > ?1 and eh.timestamp < ?2 AND eh.uri IN ?3 " +
             "group by eh.app, eh.uri  " +
             "order by count (eh.ip) DESC")
     List<ViewStatsDto> getStat(LocalDateTime start, LocalDateTime end, List<String> uris);
 
-    @Query("select new ru.practicum.statdto.dto.ViewStatsDto(eh.app, eh.uri, count(distinct eh.id)) " +
+    @Query("select new ru.practicum.statdto.dto.ViewStatsDto(eh.app, eh.uri, count(distinct eh.ip)) " +
             "from EndpointHit as eh " +
             "where eh.timestamp > ?1 and eh.timestamp < ?2 AND eh.uri IN ?3 " +
             "group by eh.app, eh.uri  " +
             "order by count (distinct eh.ip) DESC")
     List<ViewStatsDto> getStatUniqueIp(LocalDateTime start, LocalDateTime end, List<String> uris);
 
-    @Query("select new ru.practicum.statdto.dto.ViewStatsDto(e.app, e.uri, count (e)) " +
-            "from EndpointHit e " +
-            "where e.timestamp > ?1 and e.timestamp < ?2 " +
-            "group by e.app, e.uri " +
-            "order by count (e) DESC")
+    @Query("select new ru.practicum.statdto.dto.ViewStatsDto(eh.app, eh.uri, count (eh)) " +
+            "from EndpointHit as eh " +
+            "where eh.timestamp > ?1 and eh.timestamp < ?2 " +
+            "group by eh.app, eh.uri " +
+            "order by count (eh) DESC")
     List<ViewStatsDto> getStatNoUris(LocalDateTime start, LocalDateTime end);
 
-    @Query("select new ru.practicum.statdto.dto.ViewStatsDto(e.app, e.uri, count (distinct e.ip)) " +
-            "from EndpointHit e " +
-            "where e.timestamp > ?1 and e.timestamp < ?2 " +
-            "group by e.app, e.uri " +
-            "order by count (distinct e.ip) DESC")
+    @Query("select new ru.practicum.statdto.dto.ViewStatsDto(eh.app, eh.uri, count (distinct eh.ip)) " +
+            "from EndpointHit as eh " +
+            "where eh.timestamp > ?1 and eh.timestamp < ?2 " +
+            "group by eh.app, eh.uri " +
+            "order by count (distinct eh.ip) DESC")
     List<ViewStatsDto> getStatNoUrisUniqueIp(LocalDateTime start, LocalDateTime end);
 }
