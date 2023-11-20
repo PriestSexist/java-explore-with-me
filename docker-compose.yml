@@ -21,6 +21,7 @@ services:
       - POSTGRES_PASSWORD=root
 
   ewm-service:
+    build: ./ewm-server
     ports:
       - "8080:8080"
 
