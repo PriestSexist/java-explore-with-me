@@ -31,7 +31,7 @@ public class StatServiceControllerImpl implements StatServiceController {
     @Override
     public List<ViewStatsDto> getStat(@RequestParam @DateTimeFormat(pattern = FORMATTER) LocalDateTime start,
                                       @RequestParam @DateTimeFormat(pattern = FORMATTER) LocalDateTime end,
-                                      @RequestParam List<String> uris,
+                                      @RequestParam(defaultValue = "") List<String> uris,
                                       @RequestParam(defaultValue = "false") Boolean unique) {
         log.debug("Вызван метод getStat");
         return statServiceService.getStat(start, end, uris, unique);

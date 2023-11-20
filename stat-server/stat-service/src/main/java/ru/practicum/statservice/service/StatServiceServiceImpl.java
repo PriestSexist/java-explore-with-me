@@ -30,11 +30,18 @@ public class StatServiceServiceImpl implements StatServiceService {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
     public List<ViewStatsDto> getStat(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
-
         if (unique) {
-            return statServiceRepository.getUniqueIpStat(start, end, uris);
+            if (uris.isEmpty()) {
+                return statServiceRepository.getStatNoUrisUniqueIp(start, end);
+            } else {
+                return statServiceRepository.getStatUniqueIp(start, end, uris);
+            }
         } else {
-            return statServiceRepository.getStat(start, end, uris);
+            if (uris.isEmpty()) {
+                return statServiceRepository.getStatNoUris(start, end);
+            } else {
+                return statServiceRepository.getStat(start, end, uris);
+            }
         }
     }
 }
