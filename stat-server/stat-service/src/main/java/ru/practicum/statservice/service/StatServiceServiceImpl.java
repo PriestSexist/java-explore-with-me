@@ -33,15 +33,14 @@ public class StatServiceServiceImpl implements StatServiceService {
         if (unique) {
             if (uris.isEmpty()) {
                 return statServiceRepository.getStatNoUrisUniqueIp(start, end);
-            } else {
-                return statServiceRepository.getStatUniqueIp(start, end, uris);
             }
+            return statServiceRepository.getStatUniqueIp(start, end, uris);
+
         } else {
             if (uris.isEmpty()) {
                 return statServiceRepository.getStatNoUris(start, end);
-            } else {
-                return statServiceRepository.getStat(start, end, uris);
             }
+            return statServiceRepository.getStat(start, end, uris);
         }
     }
 }

@@ -7,9 +7,11 @@ import ru.practicum.statservice.model.EndpointHit;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static ru.practicum.statdto.dto.Constants.DATETIME_FORMAT;
+
 @UtilityClass
 public class EndPointHitMapper {
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATETIME_FORMAT);
 
     public static EndpointHitDto createEndPointHitDto(EndpointHit endpointHit) {
         return EndpointHitDto.builder()

@@ -12,12 +12,13 @@ import ru.practicum.statservice.service.StatServiceService;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static ru.practicum.statdto.dto.Constants.DATETIME_FORMAT;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
 public class StatServiceControllerImpl implements StatServiceController {
     private final StatServiceService statServiceService;
-    private static final String FORMATTER = "yyyy-MM-dd HH:mm:ss";
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/hit")
@@ -29,8 +30,8 @@ public class StatServiceControllerImpl implements StatServiceController {
 
     @GetMapping("/stats")
     @Override
-    public List<ViewStatsDto> getStat(@RequestParam @DateTimeFormat(pattern = FORMATTER) LocalDateTime start,
-                                      @RequestParam @DateTimeFormat(pattern = FORMATTER) LocalDateTime end,
+    public List<ViewStatsDto> getStat(@RequestParam @DateTimeFormat(pattern = DATETIME_FORMAT) LocalDateTime start,
+                                      @RequestParam @DateTimeFormat(pattern = DATETIME_FORMAT) LocalDateTime end,
                                       @RequestParam(defaultValue = "") List<String> uris,
                                       @RequestParam(defaultValue = "false") Boolean unique) {
         log.debug("Вызван метод getStat");
