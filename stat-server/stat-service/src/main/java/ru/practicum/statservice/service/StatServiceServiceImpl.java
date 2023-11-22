@@ -36,11 +36,11 @@ public class StatServiceServiceImpl implements StatServiceService {
             }
             return statServiceRepository.getStatUniqueIp(start, end, uris);
 
-        } else {
-            if (uris.isEmpty()) {
-                return statServiceRepository.getStatNoUris(start, end);
-            }
-            return statServiceRepository.getStat(start, end, uris);
         }
+
+        if (uris.isEmpty()) {
+            return statServiceRepository.getStatNoUris(start, end);
+        }
+        return statServiceRepository.getStat(start, end, uris);
     }
 }
