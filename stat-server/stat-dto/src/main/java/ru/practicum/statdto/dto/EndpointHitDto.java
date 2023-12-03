@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class EndpointHitDto {
-    private final int id;
-    private final String app;
-    private final String uri;
-    private final String ip;
-    private final String timestamp;
+    private int id;
+    private String app;
+    private String uri;
+    private String ip;
+    private String timestamp;
 }
