@@ -43,8 +43,8 @@ public class RequestMapper {
 
     public static EventRequestStatusUpdateResult createEventRequestStatusUpdateResult(List<Request> requests) {
         return EventRequestStatusUpdateResult.builder()
-                .confirmedRequests(requests.stream().filter(request -> request.getStatus()==RequestStatus.CONFIRMED).map(RequestMapper::createParticipationRequestDto).collect(Collectors.toList()))
-                .rejectedRequests(requests.stream().filter(request -> request.getStatus()==RequestStatus.REJECTED).map(RequestMapper::createParticipationRequestDto).collect(Collectors.toList()))
+                .confirmedRequests(requests.stream().filter(request -> request.getStatus() == RequestStatus.CONFIRMED).map(RequestMapper::createParticipationRequestDto).collect(Collectors.toList()))
+                .rejectedRequests(requests.stream().filter(request -> request.getStatus() == RequestStatus.REJECTED).map(RequestMapper::createParticipationRequestDto).collect(Collectors.toList()))
                 .build();
     }
 }

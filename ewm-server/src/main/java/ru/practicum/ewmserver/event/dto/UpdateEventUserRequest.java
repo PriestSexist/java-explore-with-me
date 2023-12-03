@@ -10,7 +10,7 @@ import ru.practicum.ewmserver.event.model.Location;
 import ru.practicum.ewmserver.event.model.StateAction;
 import ru.practicum.statdto.dto.Constants;
 
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
@@ -22,7 +22,6 @@ public class UpdateEventUserRequest {
     @Size(min = 20, message = ErrorStrings.TOO_SHORT)
     @Size(max = 2000, message = ErrorStrings.TOO_LONG)
     private final String annotation;
-    @Positive
     private final int category;
     @Size(min = 20, message = ErrorStrings.TOO_SHORT)
     @Size(max = 7000, message = ErrorStrings.TOO_LONG)
@@ -31,7 +30,7 @@ public class UpdateEventUserRequest {
     private final LocalDateTime eventDate;
     private final Location location;
     private final Boolean paid;
-    @Positive
+    @PositiveOrZero
     private final int participantLimit;
     private final Boolean requestModeration;
     private final StateAction stateAction;

@@ -53,7 +53,9 @@ public class PrivateEventServiceImpl implements PrivateEventService {
 
         Event event = EventMapper.createEvent(newEventDto, userFromDb, categoryFromDb);
 
-        return EventMapper.createEventFullDto(eventRepository.save(event));
+        Event eventFromDb = eventRepository.save(event);
+
+        return EventMapper.createEventFullDto(eventFromDb, requestRepository.countRequestByEventIdAndStatus(eventFromDb.getId(), RequestStatus.CONFIRMED));
     }
 
     @Override
@@ -67,7 +69,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
         }
 
         return eventRepository.getByInitiatorId(userId, pageRequest).stream()
-                .map(EventMapper::createEventShortDto)
+                .map(event -> EventMapper.createEventShortDto(event, requestRepository.countRequestByEventIdAndStatus(event.getId(), RequestStatus.CONFIRMED)))
                 .collect(Collectors.toList());
     }
 
@@ -82,7 +84,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
         Event eventFromDb = eventRepository.findById(eventId).orElseThrow(() -> new EntityNotFoundException(String.format(EVENT_NOT_FOUND_BY_ID, eventId)));
 
 
-        return EventMapper.createEventFullDto(eventFromDb);
+        return EventMapper.createEventFullDto(eventFromDb, requestRepository.countRequestByEventIdAndStatus(eventFromDb.getId(), RequestStatus.CONFIRMED));
     }
 
     @Override
@@ -150,7 +152,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
 
         eventFromDb.setParticipantLimit(updateEventUserRequest.getParticipantLimit());
 
-        return EventMapper.createEventFullDto(eventRepository.save(eventFromDb));
+        return EventMapper.createEventFullDto(eventRepository.save(eventFromDb), requestRepository.countRequestByEventIdAndStatus(eventFromDb.getId(), RequestStatus.CONFIRMED));
 
     }
 
@@ -185,7 +187,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
 
         List<Request> requests = requestRepository.findAllById(eventRequestStatusUpdateRequest.getRequestIds());
 
-        switch (eventRequestStatusUpdateRequest.getStatus()){
+        switch (eventRequestStatusUpdateRequest.getStatus()) {
             case REJECTED:
                 for (Request request : requests) {
                     if (request.getStatus() == RequestStatus.CONFIRMED) {

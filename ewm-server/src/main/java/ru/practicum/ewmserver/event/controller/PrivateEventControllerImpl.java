@@ -35,8 +35,8 @@ public class PrivateEventControllerImpl implements PrivateEventController {
     @Override
     @GetMapping
     public List<EventShortDto> getUserEvents(@PathVariable @Positive int userId,
-                                             @RequestParam @PositiveOrZero int from,
-                                             @RequestParam @Positive int size) {
+                                             @RequestParam(defaultValue = "0") @PositiveOrZero int from,
+                                             @RequestParam(defaultValue = "10") @Positive int size) {
         log.debug("Вызван метод getUserEvents");
         return privateEventService.getUserEvents(userId, from, size);
     }

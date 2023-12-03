@@ -2,8 +2,8 @@ package ru.practicum.ewmserver.category.service;
 
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.ewmserver.category.dto.NewCategoryDto;
 import ru.practicum.ewmserver.category.dto.CategoryDto;
+import ru.practicum.ewmserver.category.dto.NewCategoryDto;
 
 public interface AdminCategoryService {
     @Transactional(propagation = Propagation.REQUIRED)

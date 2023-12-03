@@ -1,15 +1,14 @@
 package ru.practicum.ewmserver.user.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.ewmserver.user.dto.NewUserRequest;
-import ru.practicum.ewmserver.user.dto.UserDto;
 import ru.practicum.ewmserver.error.exception.DataConflictException;
 import ru.practicum.ewmserver.error.exception.EntityNotFoundException;
+import ru.practicum.ewmserver.user.dto.NewUserRequest;
+import ru.practicum.ewmserver.user.dto.UserDto;
 import ru.practicum.ewmserver.user.mapper.UserMapper;
 import ru.practicum.ewmserver.user.model.User;
 import ru.practicum.ewmserver.user.storage.UserRepository;

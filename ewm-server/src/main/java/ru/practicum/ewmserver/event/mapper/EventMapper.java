@@ -23,7 +23,6 @@ public class EventMapper {
                 .annotation(newEventDto.getAnnotation())
                 .description(newEventDto.getDescription())
                 .category(category)
-                .confirmedRequests(0)
                 .createdOn(LocalDateTime.now())
                 .eventDate(newEventDto.getEventDate())
                 .initiator(initiator)
@@ -37,12 +36,13 @@ public class EventMapper {
                 .build();
 
     }
-    public static EventShortDto createEventShortDto(Event event) {
+
+    public static EventShortDto createEventShortDto(Event event, int confirmedRequests) {
         return EventShortDto.builder()
                 .id(event.getId())
                 .annotation(event.getAnnotation())
                 .category(CategoryMapper.createCategoryDto(event.getCategory()))
-                .confirmedRequests(event.getConfirmedRequests())
+                .confirmedRequests(confirmedRequests)
                 .eventDate(event.getEventDate().toString())
                 .initiator(UserMapper.createUserShortDto(event.getInitiator()))
                 .paid(event.getPaid())
@@ -51,24 +51,30 @@ public class EventMapper {
                 .build();
     }
 
-    public static EventFullDto createEventFullDto(Event event) {
-        return EventFullDto.builder()
+    public static EventFullDto createEventFullDto(Event event, int confirmedRequests) {
+        EventFullDto eventFullDto = EventFullDto.builder()
                 .id(event.getId())
                 .annotation(event.getAnnotation())
                 .description(event.getDescription())
                 .category(CategoryMapper.createCategoryDto(event.getCategory()))
-                .confirmedRequests(event.getConfirmedRequests())
+                .confirmedRequests(confirmedRequests)
                 .createdOn(event.getCreatedOn().format(FORMATTER))
                 .eventDate(event.getEventDate().format(FORMATTER))
                 .initiator(UserMapper.createUserShortDto(event.getInitiator()))
                 .location(event.getLocation())
                 .paid(event.getPaid())
                 .participantLimit(event.getParticipantLimit())
-                .publishedOn(event.getPublishedOn().format(FORMATTER))
                 .requestModeration(event.getRequestModeration())
                 .state(event.getState())
                 .title(event.getTitle())
                 .views(event.getViews())
                 .build();
+
+        if (event.getPublishedOn() != null) {
+            eventFullDto.setPublishedOn(event.getPublishedOn().format(FORMATTER));
+        } else {
+            eventFullDto.setPublishedOn(null);
+        }
+        return eventFullDto;
     }
 }

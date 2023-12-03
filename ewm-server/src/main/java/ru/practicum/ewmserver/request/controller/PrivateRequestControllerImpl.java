@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/uer/{userId}/requests")
+@RequestMapping("/users/{userId}/requests")
 @RequiredArgsConstructor
 @Validated
 public class PrivateRequestControllerImpl implements PrivateRequestController {
@@ -24,7 +24,7 @@ public class PrivateRequestControllerImpl implements PrivateRequestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ParticipationRequestDto postRequest(@PathVariable @Positive int userId,
-                                               @RequestParam @Positive  int eventId) {
+                                               @RequestParam @Positive int eventId) {
         log.debug("Вызван метод postRequest");
         return privateRequestService.postRequest(userId, eventId);
     }

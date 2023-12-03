@@ -10,10 +10,10 @@ import ru.practicum.ewmserver.error.exception.ForbiddenOperationException;
 import ru.practicum.ewmserver.event.model.Event;
 import ru.practicum.ewmserver.event.model.EventState;
 import ru.practicum.ewmserver.event.storage.EventRepository;
+import ru.practicum.ewmserver.request.dto.ParticipationRequestDto;
 import ru.practicum.ewmserver.request.mapper.RequestMapper;
 import ru.practicum.ewmserver.request.model.Request;
 import ru.practicum.ewmserver.request.model.RequestStatus;
-import ru.practicum.ewmserver.request.dto.ParticipationRequestDto;
 import ru.practicum.ewmserver.request.storage.RequestRepository;
 import ru.practicum.ewmserver.user.model.User;
 import ru.practicum.ewmserver.user.storage.UserRepository;
@@ -25,7 +25,7 @@ import static ru.practicum.ewmserver.error.constants.ErrorStrings.*;
 
 @Service
 @RequiredArgsConstructor
-public class PrivateRequestServiceImpl implements PrivateRequestService{
+public class PrivateRequestServiceImpl implements PrivateRequestService {
 
     private final RequestRepository requestRepository;
     private final UserRepository userRepository;
@@ -48,12 +48,12 @@ public class PrivateRequestServiceImpl implements PrivateRequestService{
         }
 
         if (eventFromDb.getState().equals(EventState.PUBLISHED)) {
-            throw new DataConflictException(String.format(REQUEST_FOR_NOT_PUBLISHED_EVENT,  eventId));
+            throw new DataConflictException(String.format(REQUEST_FOR_NOT_PUBLISHED_EVENT, eventId));
         }
 
         if (eventFromDb.getParticipantLimit() > 0) {
             if (requestRepository.countRequestByEventIdAndStatus(eventId, RequestStatus.CONFIRMED) >= eventFromDb.getParticipantLimit()) {
-                throw new DataConflictException(String.format(EVENT_IS_FULL,  eventId));
+                throw new DataConflictException(String.format(EVENT_IS_FULL, eventId));
             }
         }
 

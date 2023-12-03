@@ -11,31 +11,32 @@ import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 public interface PrivateEventController {
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    EventFullDto postEvent(@RequestBody NewEventDto newEventDto,
-                           @PathVariable int userId);
+    EventFullDto postEvent(@RequestBody @Valid NewEventDto newEventDto,
+                           @PathVariable @Positive int userId);
 
     @GetMapping
     List<EventShortDto> getUserEvents(@PathVariable @Positive int userId,
-                                      @RequestParam @PositiveOrZero int from,
-                                      @RequestParam @Positive int size);
+                                      @RequestParam(defaultValue = "0") @PositiveOrZero int from,
+                                      @RequestParam(defaultValue = "10") @Positive int size);
 
     @GetMapping("/{eventId}")
     EventFullDto getEventById(@PathVariable @Positive int userId,
                               @PathVariable @Positive int eventId);
-
-    @GetMapping("/{eventId}/requests")
-    List<ParticipationRequestDto> getRequestsInEvent(@PathVariable @Positive int userId,
-                                                     @PathVariable @Positive int eventId);
 
     @PatchMapping("/{eventId}")
     EventFullDto patchEvent(@RequestBody @Valid UpdateEventUserRequest updateEventUserRequest,
                             @PathVariable @Positive int userId,
                             @PathVariable @Positive int eventId);
 
+    @GetMapping("/{eventId}/requests")
+    List<ParticipationRequestDto> getRequestsInEvent(@PathVariable @Positive int userId,
+                                                     @PathVariable @Positive int eventId);
+
     @PatchMapping("/{eventId}/requests")
-    EventRequestStatusUpdateResult patchRequests(@RequestBody @Valid EventRequestStatusUpdateRequest eventRequestStatusUpdateRequest,
+    EventRequestStatusUpdateResult patchRequests(@RequestBody EventRequestStatusUpdateRequest eventRequestStatusUpdateRequest,
                                                  @PathVariable @Positive int userId,
                                                  @PathVariable @Positive int eventId);
 }

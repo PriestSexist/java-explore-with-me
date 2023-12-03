@@ -10,6 +10,7 @@ import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 public interface PublicCategoryController {
+
     @GetMapping
     List<CategoryDto> getCategories(@RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                     @RequestParam(defaultValue = "10") @Positive int size);

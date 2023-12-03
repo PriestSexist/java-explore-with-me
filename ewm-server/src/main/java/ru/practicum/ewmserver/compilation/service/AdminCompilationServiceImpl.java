@@ -18,6 +18,8 @@ import ru.practicum.ewmserver.event.dto.EventShortDto;
 import ru.practicum.ewmserver.event.mapper.EventMapper;
 import ru.practicum.ewmserver.event.model.Event;
 import ru.practicum.ewmserver.event.storage.EventRepository;
+import ru.practicum.ewmserver.request.model.RequestStatus;
+import ru.practicum.ewmserver.request.storage.RequestRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,7 @@ import static ru.practicum.ewmserver.error.constants.ErrorStrings.COMPILATION_NO
 public class AdminCompilationServiceImpl implements AdminCompilationService {
 
     private final EventRepository eventRepository;
+    private final RequestRepository requestRepository;
     private final CompilationRepository compilationRepository;
     private final EventCompilationConnectionRepository eventCompilationConnectionRepository;
 
@@ -49,7 +52,7 @@ public class AdminCompilationServiceImpl implements AdminCompilationService {
 
         if (compilationDto.getEvents() != null && !compilationDto.getEvents().isEmpty()) {
             List<Event> events = eventRepository.findAllById(new ArrayList<>(compilationDto.getEvents()));
-            eventShortDtoList = events.stream().map(EventMapper::createEventShortDto).collect(Collectors.toList());
+            eventShortDtoList = events.stream().map(event -> EventMapper.createEventShortDto(event, requestRepository.countRequestByEventIdAndStatus(event.getId(), RequestStatus.CONFIRMED))).collect(Collectors.toList());
             for (Integer eventId : compilationDto.getEvents()) {
                 eventCompilationConnectionRepository.save(new EventCompilationConnection(0, eventId, compilationFromDb.getId()));
             }
@@ -91,6 +94,6 @@ public class AdminCompilationServiceImpl implements AdminCompilationService {
             }
         }
 
-        return CompilationMapper.createCompilationDtoWithEventList(compilationRepository.save(compilationFromDb));
+        return CompilationMapper.createCompilationDtoWithEventList(compilationRepository.save(compilationFromDb), requestRepository);
     }
 }

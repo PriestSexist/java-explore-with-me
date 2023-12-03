@@ -9,5 +9,6 @@ import ru.practicum.ewmserver.compilation.model.Compilation;
 @Repository
 public interface CompilationRepository extends JpaRepository<Compilation, Integer> {
     boolean existsByTitle(String title);
+
     Page<Compilation> getAllByPinned(boolean pinned, Pageable pageable);
 }

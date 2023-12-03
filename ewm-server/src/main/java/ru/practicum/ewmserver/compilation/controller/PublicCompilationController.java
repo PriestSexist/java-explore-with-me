@@ -1,7 +1,5 @@
 package ru.practicum.ewmserver.compilation.controller;
 
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +10,7 @@ import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 public interface PublicCompilationController {
+
     @GetMapping
     List<CompilationDto> getCompilation(@RequestParam boolean pinned,
                                         @RequestParam(defaultValue = "0") @PositiveOrZero int from,

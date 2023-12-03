@@ -37,7 +37,7 @@ public class PublicEventControllerImpl implements PublicEventController {
                                          @RequestParam(defaultValue = "false") Boolean paid,
                                          @RequestParam(required = false) @DateTimeFormat(pattern = Constants.DATETIME_FORMAT) LocalDateTime rangeStart,
                                          @RequestParam(required = false) @DateTimeFormat(pattern = Constants.DATETIME_FORMAT) LocalDateTime rangeEnd,
-                                         @RequestParam(defaultValue = "") Boolean onlyAvailable,
+                                         @RequestParam(defaultValue = "false") Boolean onlyAvailable,
                                          @RequestParam(defaultValue = "EVENT_DATE") String sort,
                                          @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                          @RequestParam(defaultValue = "10") @Positive int size,

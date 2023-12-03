@@ -1,11 +1,8 @@
 package ru.practicum.ewmserver.compilation.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewmserver.compilation.dto.CompilationDto;
-import ru.practicum.ewmserver.compilation.storage.CompilationRepository;
 
 import java.util.List;
 

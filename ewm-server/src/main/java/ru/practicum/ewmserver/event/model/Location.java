@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Data
@@ -14,6 +13,6 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor(force = true)
 @Embeddable
 public class Location {
-    private final double lat;
-    private final double lon;
+    private final float lat;
+    private final float lon;
 }

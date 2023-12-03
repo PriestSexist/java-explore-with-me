@@ -5,8 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.practicum.ewmserver.category.dto.CategoryDto;
-import ru.practicum.ewmserver.event.model.Location;
 import ru.practicum.ewmserver.event.model.EventState;
+import ru.practicum.ewmserver.event.model.Location;
 import ru.practicum.ewmserver.user.dto.UserShortDto;
 
 @Data
@@ -25,7 +25,7 @@ public class EventFullDto {
     private final Location location;
     private final Boolean paid;
     private final int participantLimit;
-    private final String publishedOn;
+    private String publishedOn;
     private final Boolean requestModeration;
     private final EventState state;
     private final String title;

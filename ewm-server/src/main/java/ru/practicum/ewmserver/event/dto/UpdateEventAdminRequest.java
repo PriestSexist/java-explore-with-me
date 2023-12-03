@@ -5,9 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.ewmserver.event.model.Location;
 import ru.practicum.ewmserver.error.constants.ErrorStrings;
-import ru.practicum.ewmserver.event.model.ModeratorEventState;
+import ru.practicum.ewmserver.event.model.Location;
 import ru.practicum.statdto.dto.Constants;
 
 import javax.validation.constraints.Positive;
@@ -34,7 +33,7 @@ public class UpdateEventAdminRequest {
     @PositiveOrZero
     private final Integer participantLimit;
     private final Boolean requestModeration;
-    private final ModeratorEventState stateAction;
+    private final String stateAction;
     @Size(min = 3, message = ErrorStrings.TOO_SHORT)
     @Size(max = 120, message = ErrorStrings.TOO_LONG)
     private final String title;

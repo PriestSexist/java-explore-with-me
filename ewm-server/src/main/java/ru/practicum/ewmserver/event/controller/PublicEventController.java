@@ -15,10 +15,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface PublicEventController {
+
     @GetMapping
     List<EventShortDto> getEvents(@RequestParam(defaultValue = "") String text,
-                                  @RequestParam(defaultValue = "") List<Integer> categories,
-                                  @RequestParam(required = false) Boolean paid,
+                                  @RequestParam(required = false) List<Integer> categories,
+                                  @RequestParam(defaultValue = "false") Boolean paid,
                                   @RequestParam(required = false) @DateTimeFormat(pattern = Constants.DATETIME_FORMAT) LocalDateTime rangeStart,
                                   @RequestParam(required = false) @DateTimeFormat(pattern = Constants.DATETIME_FORMAT) LocalDateTime rangeEnd,
                                   @RequestParam(defaultValue = "") Boolean onlyAvailable,
@@ -28,6 +29,6 @@ public interface PublicEventController {
                                   HttpServletRequest request);
 
     @GetMapping("/{id}")
-    EventFullDto getEventById(@PathVariable int id,
+    EventFullDto getEventById(@PathVariable @Positive int id,
                               HttpServletRequest request);
 }

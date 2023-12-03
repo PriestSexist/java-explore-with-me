@@ -9,6 +9,7 @@ import java.util.List;
 public interface PrivateRequestService {
     @Transactional(propagation = Propagation.REQUIRED)
     ParticipationRequestDto postRequest(int userId, int eventId);
+
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     List<ParticipationRequestDto> getRequests(int userId);
 

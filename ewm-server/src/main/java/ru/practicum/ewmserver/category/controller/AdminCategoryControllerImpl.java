@@ -5,9 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.ewmserver.category.dto.CategoryDto;
 import ru.practicum.ewmserver.category.dto.NewCategoryDto;
 import ru.practicum.ewmserver.category.service.AdminCategoryService;
-import ru.practicum.ewmserver.category.dto.CategoryDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;

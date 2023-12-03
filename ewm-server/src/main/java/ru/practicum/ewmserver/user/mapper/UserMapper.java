@@ -16,14 +16,14 @@ public class UserMapper {
                 .build();
     }
 
-    public static User createUser (NewUserRequest newUserRequest) {
+    public static User createUser(NewUserRequest newUserRequest) {
         return User.builder()
                 .email(newUserRequest.getEmail())
                 .name(newUserRequest.getName())
                 .build();
     }
 
-    public static UserShortDto createUserShortDto (User user) {
+    public static UserShortDto createUserShortDto(User user) {
         return UserShortDto.builder()
                 .id(user.getId())
                 .name(user.getName())

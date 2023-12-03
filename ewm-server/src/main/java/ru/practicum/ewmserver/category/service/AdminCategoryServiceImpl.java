@@ -4,21 +4,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.ewmserver.category.dto.CategoryDto;
 import ru.practicum.ewmserver.category.dto.NewCategoryDto;
 import ru.practicum.ewmserver.category.mapper.CategoryMapper;
 import ru.practicum.ewmserver.category.model.Category;
 import ru.practicum.ewmserver.category.storage.CategoryRepository;
-import ru.practicum.ewmserver.category.dto.CategoryDto;
 import ru.practicum.ewmserver.error.exception.DataConflictException;
 import ru.practicum.ewmserver.error.exception.EntityNotFoundException;
 
-import static ru.practicum.ewmserver.error.constants.ErrorStrings.*;
+import static ru.practicum.ewmserver.error.constants.ErrorStrings.CATEGORY_NOT_FOUND_BY_ID;
+import static ru.practicum.ewmserver.error.constants.ErrorStrings.CATEGORY_WITH_THIS_NAME_ALREADY_EXISTS;
 
 @RequiredArgsConstructor
 @Service
-public class AdminCategoryServiceImpl implements AdminCategoryService{
+public class AdminCategoryServiceImpl implements AdminCategoryService {
 
     private final CategoryRepository categoryRepository;
+
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public CategoryDto postCategoryAdmin(NewCategoryDto newCategoryDto) {

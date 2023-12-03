@@ -14,6 +14,8 @@ import ru.practicum.ewmserver.event.mapper.EventMapper;
 import ru.practicum.ewmserver.event.model.Event;
 import ru.practicum.ewmserver.event.model.EventState;
 import ru.practicum.ewmserver.event.storage.EventRepository;
+import ru.practicum.ewmserver.request.model.RequestStatus;
+import ru.practicum.ewmserver.request.storage.RequestRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,13 +29,14 @@ import static ru.practicum.ewmserver.error.constants.ErrorStrings.INVAlID_TIME_P
 public class PublicEventServiceImpl implements PublicEventService {
 
     private final EventRepository eventRepository;
+    private final RequestRepository requestRepository;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public List<EventShortDto> getEvents(String text, List<Integer> categories, Boolean paid, LocalDateTime rangeStart, LocalDateTime rangeEnd, Boolean onlyAvailable, String sort, int from, int size) {
 
         if (text.isBlank()) {
-            text = null;
+            text = "";
         }
 
         if (!sort.equalsIgnoreCase("EVENT_DATE") && !sort.equalsIgnoreCase("VIEWS")) {
@@ -55,20 +58,20 @@ public class PublicEventServiceImpl implements PublicEventService {
 
         if (!paid) {
             if (onlyAvailable) {
-                events = eventRepository.getBySearchAvailable(text, categories, rangeStart, rangeEnd, sort, page);
+                events = eventRepository.getBySearchAvailable(EventState.PUBLISHED, text, categories, rangeStart, rangeEnd, sort, page);
             } else {
-                events = eventRepository.getBySearch(text, categories, rangeStart, rangeEnd, sort, page);
+                events = eventRepository.getBySearch(EventState.PUBLISHED, text, categories, rangeStart, rangeEnd, sort, page);
             }
         } else {
             if (onlyAvailable) {
-                events = eventRepository.getBySearchAndPaidAvailable(text, categories, rangeStart, rangeEnd, true, sort, page);
+                events = eventRepository.getBySearchAndPaidAvailable(EventState.PUBLISHED, text, categories, rangeStart, rangeEnd, true, sort, page);
             } else {
-                events = eventRepository.getBySearchAndPaid(text, categories, rangeStart, rangeEnd, true, sort, page);
+                events = eventRepository.getBySearchAndPaid(EventState.PUBLISHED, text, categories, rangeStart, rangeEnd, true, sort, page);
             }
         }
 
         return events.getContent().stream()
-                .map(EventMapper::createEventShortDto)
+                .map(event -> EventMapper.createEventShortDto(event, requestRepository.countRequestByEventIdAndStatus(event.getId(), RequestStatus.CONFIRMED)))
                 .collect(Collectors.toList());
     }
 
@@ -76,10 +79,10 @@ public class PublicEventServiceImpl implements PublicEventService {
     @Transactional(propagation = Propagation.REQUIRED)
     public EventFullDto getEventById(int id) {
 
-        Event event = eventRepository.getByIdAndState(id, EventState.PUBLISHED).orElseThrow(() -> new EntityNotFoundException(String.format("Event with id=%d was not found", id)));
+        Event eventFromDb = eventRepository.getByIdAndState(id, EventState.PUBLISHED).orElseThrow(() -> new EntityNotFoundException(String.format("Event with id=%d was not found", id)));
 
-        event.setViews(event.getViews()+1);
-        eventRepository.save(event);
-        return EventMapper.createEventFullDto(eventRepository.save(event));
+        eventFromDb.setViews(eventFromDb.getViews() + 1);
+        eventRepository.save(eventFromDb);
+        return EventMapper.createEventFullDto(eventRepository.save(eventFromDb), requestRepository.countRequestByEventIdAndStatus(eventFromDb.getId(), RequestStatus.CONFIRMED));
     }
 }
