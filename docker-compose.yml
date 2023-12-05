@@ -14,7 +14,8 @@ services:
   stats-db:
     image: postgres:14-alpine
     volumes:
-      - /var/lib/postgresql/data/
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
     ports:
       - "5432:5432"
     environment:
@@ -29,15 +30,12 @@ services:
       - stats-server
     ports:
       - "8080:8080"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/ewm
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=root
 
   ewm-db:
     image: postgres:14-alpine
     volumes:
-      - /var/lib/postgresql/data/
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
     ports:
       - "5433:5432"
     environment:
