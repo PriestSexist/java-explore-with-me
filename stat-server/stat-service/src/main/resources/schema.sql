@@ -1,6 +1,3 @@
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
-
 create table if not exists endpoint_hit
 (
     id       serial
@@ -12,5 +9,3 @@ create table if not exists endpoint_hit
     hit_time timestamp     not null
 );
 
-alter table endpoint_hit
-    owner to root;

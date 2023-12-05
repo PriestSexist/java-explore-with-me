@@ -88,21 +88,3 @@ create table if not exists event_compilation_connection
             references compilation
             on update cascade on delete cascade
 );
-
-alter table category
-    owner to root;
-
-alter table compilation
-    owner to root;
-
-alter table event
-    owner to root;
-
-alter table event_compilation_connection
-    owner to root;
-
-alter table request
-    owner to root;
-
-alter table users
-    owner to root;
