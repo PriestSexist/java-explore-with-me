@@ -17,8 +17,8 @@ public class EventCompilationConnection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @JoinColumn(name = "event_id")
+    @Column(name = "event_id")
     private int eventId;
-    @JoinColumn(name = "compilation_id")
+    @Column(name = "compilation_id")
     private int compilationId;
 }
