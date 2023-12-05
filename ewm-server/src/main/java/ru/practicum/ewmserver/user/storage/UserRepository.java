@@ -2,6 +2,7 @@ package ru.practicum.ewmserver.user.storage;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.practicum.ewmserver.user.model.User;
 
@@ -13,6 +14,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("select u " +
             "from User as u " +
-            "where u.id in ?1 ")
-    List<User> getAllUsersById(List<Integer> ids);
+            "where (:ids is null or u.id in :ids) ")
+    List<User> getAllUsersById(@Param("ids") List<Integer> ids);
 }

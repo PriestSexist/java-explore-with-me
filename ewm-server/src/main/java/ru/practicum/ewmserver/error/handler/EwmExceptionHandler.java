@@ -1,5 +1,6 @@
 package ru.practicum.ewmserver.error.handler;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -31,24 +32,24 @@ public class EwmExceptionHandler {
     })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleBadRequest(final Exception e) {
-        return new ApiError(null, e.getMessage(), "Incorrectly made request.", HttpStatus.BAD_REQUEST);
+        return new ApiError(null, e.getMessage(), "Incorrectly made request", HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = {
-            javax.persistence.EntityNotFoundException.class,
             EntityNotFoundException.class
     })
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiError handleNotfoundException(final Exception exception) {
-        return new ApiError(null, exception.getMessage(), "The required object was not found.", HttpStatus.NOT_FOUND);
+        return new ApiError(null, exception.getMessage(), "The required object was not found", HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(value = {
             DataConflictException.class,
+            DataIntegrityViolationException.class
     })
     @ResponseStatus(HttpStatus.CONFLICT)
     public ApiError handleDataConflictException(final Exception e) {
-        return new ApiError(null, e.getMessage(), "Integrity constraint has been violated.", HttpStatus.CONFLICT);
+        return new ApiError(null, e.getMessage(), "Integrity constraint has been violated", HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(value = {
@@ -56,7 +57,7 @@ public class EwmExceptionHandler {
     })
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ApiError handleForbiddenOperation(final Exception e) {
-        return new ApiError(null, e.getMessage(), "The operation can't be executed.", HttpStatus.FORBIDDEN);
+        return new ApiError(null, e.getMessage(), "The operation can't be executed", HttpStatus.FORBIDDEN);
     }
 
 

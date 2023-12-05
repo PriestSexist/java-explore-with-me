@@ -10,7 +10,7 @@ import ru.practicum.ewmserver.category.dto.NewCategoryDto;
 import ru.practicum.ewmserver.category.service.AdminCategoryService;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,23 +24,23 @@ public class AdminCategoryControllerImpl implements AdminCategoryController {
     @Override
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoryDto postCategoryAdmin(@RequestBody @Valid NewCategoryDto newCategoryDto) {
+    public CategoryDto postCategory(@RequestBody @Valid NewCategoryDto newCategoryDto) {
         log.debug("Вызван метод postCategory");
         return adminCategoryService.postCategoryAdmin(newCategoryDto);
     }
 
     @Override
-    @DeleteMapping("/users/{catId}")
+    @DeleteMapping("/{catId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCategoryAdmin(@PathVariable @Positive int catId) {
+    public void deleteCategory(@PathVariable @PositiveOrZero int catId) {
         log.debug("Вызван метод deleteCategory");
         adminCategoryService.deleteCategoryAdmin(catId);
     }
 
     @Override
     @PatchMapping("/{catId}")
-    public CategoryDto patchCategoryAdmin(@RequestBody CategoryDto categoryDto,
-                                          @PathVariable @Positive int catId) {
+    public CategoryDto patchCategory(@RequestBody @Valid CategoryDto categoryDto,
+                                     @PathVariable @PositiveOrZero int catId) {
         log.debug("Вызван метод patchCompilationAdmin");
         return adminCategoryService.patchCategoryAdmin(categoryDto, catId);
     }

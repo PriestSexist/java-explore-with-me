@@ -24,7 +24,7 @@ public class PublicCompilationServiceImpl implements PublicCompilationService {
     private final RequestRepository requestRepository;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public List<CompilationDto> getCompilation(boolean pinned, int from, int size) {
         PageRequest pageRequest = PageRequest.of(from > 0 ? from / size : 0, size);
         if (pinned) {

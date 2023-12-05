@@ -17,5 +17,5 @@ public interface PublicCompilationController {
                                         @RequestParam(defaultValue = "10") @Positive int size);
 
     @GetMapping("/{compId}")
-    CompilationDto getCompilationById(@PathVariable @Positive int compId);
+    CompilationDto getCompilationById(@PathVariable @PositiveOrZero int compId);
 }

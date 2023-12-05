@@ -7,7 +7,7 @@ import ru.practicum.ewmserver.compilation.dto.NewCompilationDto;
 import ru.practicum.ewmserver.compilation.dto.UpdateCompilationRequest;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 public interface AdminCompilationController {
 
@@ -17,9 +17,9 @@ public interface AdminCompilationController {
 
     @DeleteMapping("/{compId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteCompilation(@PathVariable @Positive int compId);
+    void deleteCompilation(@PathVariable @PositiveOrZero int compId);
 
     @PatchMapping("/{compId}")
     CompilationDto patchCompilation(@RequestBody @Valid UpdateCompilationRequest updateCompilationRequest,
-                                    @PathVariable @Positive int compId);
+                                    @PathVariable @PositiveOrZero int compId);
 }

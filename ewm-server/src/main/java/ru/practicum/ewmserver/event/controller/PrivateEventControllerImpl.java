@@ -27,14 +27,14 @@ public class PrivateEventControllerImpl implements PrivateEventController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public EventFullDto postEvent(@RequestBody @Valid NewEventDto newEventDto,
-                                  @PathVariable @Positive int userId) {
+                                  @PathVariable @PositiveOrZero int userId) {
         log.debug("Вызван метод postEvent");
         return privateEventService.postEvent(newEventDto, userId);
     }
 
     @Override
     @GetMapping
-    public List<EventShortDto> getUserEvents(@PathVariable @Positive int userId,
+    public List<EventShortDto> getUserEvents(@PathVariable @PositiveOrZero int userId,
                                              @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                              @RequestParam(defaultValue = "10") @Positive int size) {
         log.debug("Вызван метод getUserEvents");
@@ -43,8 +43,8 @@ public class PrivateEventControllerImpl implements PrivateEventController {
 
     @Override
     @GetMapping("/{eventId}")
-    public EventFullDto getEventById(@PathVariable @Positive int userId,
-                                     @PathVariable @Positive int eventId) {
+    public EventFullDto getEventById(@PathVariable @PositiveOrZero int userId,
+                                     @PathVariable @PositiveOrZero int eventId) {
         log.debug("Вызван метод getEventById");
         return privateEventService.getEventById(userId, eventId);
     }
@@ -52,16 +52,16 @@ public class PrivateEventControllerImpl implements PrivateEventController {
     @Override
     @PatchMapping("/{eventId}")
     public EventFullDto patchEvent(@RequestBody @Valid UpdateEventUserRequest updateEventUserRequest,
-                                   @PathVariable @Positive int userId,
-                                   @PathVariable @Positive int eventId) {
+                                   @PathVariable @PositiveOrZero int userId,
+                                   @PathVariable @PositiveOrZero int eventId) {
         log.debug("Вызван метод patchEvent");
         return privateEventService.patchEvent(updateEventUserRequest, userId, eventId);
     }
 
     @Override
     @GetMapping("/{eventId}/requests")
-    public List<ParticipationRequestDto> getRequestsInEvent(@PathVariable @Positive int userId,
-                                                            @PathVariable @Positive int eventId) {
+    public List<ParticipationRequestDto> getRequestsInEvent(@PathVariable @PositiveOrZero int userId,
+                                                            @PathVariable @PositiveOrZero int eventId) {
         log.debug("Вызван метод getRequestsInEvent");
         return privateEventService.getRequestsInEvent(userId, eventId);
     }
@@ -69,8 +69,8 @@ public class PrivateEventControllerImpl implements PrivateEventController {
     @Override
     @PatchMapping("/{eventId}/requests")
     public EventRequestStatusUpdateResult patchRequests(@RequestBody EventRequestStatusUpdateRequest eventRequestStatusUpdateRequest,
-                                                        @PathVariable @Positive int userId,
-                                                        @PathVariable @Positive int eventId) {
+                                                        @PathVariable @PositiveOrZero int userId,
+                                                        @PathVariable @PositiveOrZero int eventId) {
         log.debug("Вызван метод patchRequests");
         return privateEventService.patchRequests(eventRequestStatusUpdateRequest, userId, eventId);
     }

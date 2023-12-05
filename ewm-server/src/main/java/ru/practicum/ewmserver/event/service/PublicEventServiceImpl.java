@@ -1,8 +1,10 @@
 package ru.practicum.ewmserver.event.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,9 +18,12 @@ import ru.practicum.ewmserver.event.model.EventState;
 import ru.practicum.ewmserver.event.storage.EventRepository;
 import ru.practicum.ewmserver.request.model.RequestStatus;
 import ru.practicum.ewmserver.request.storage.RequestRepository;
+import ru.practicum.statclient.StatClient;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static ru.practicum.ewmserver.error.constants.ErrorStrings.INVALID_SORTING_PARAMETERS;
@@ -26,10 +31,12 @@ import static ru.practicum.ewmserver.error.constants.ErrorStrings.INVAlID_TIME_P
 
 @Service
 @RequiredArgsConstructor
+@ComponentScan(basePackages = {"ru.practicum.statclient"})
 public class PublicEventServiceImpl implements PublicEventService {
 
     private final EventRepository eventRepository;
     private final RequestRepository requestRepository;
+    private final StatClient statClient;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
@@ -76,13 +83,24 @@ public class PublicEventServiceImpl implements PublicEventService {
     }
 
     @Override
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public EventFullDto getEventById(int id) {
 
         Event eventFromDb = eventRepository.getByIdAndState(id, EventState.PUBLISHED).orElseThrow(() -> new EntityNotFoundException(String.format("Event with id=%d was not found", id)));
 
-        eventFromDb.setViews(eventFromDb.getViews() + 1);
-        eventRepository.save(eventFromDb);
-        return EventMapper.createEventFullDto(eventRepository.save(eventFromDb), requestRepository.countRequestByEventIdAndStatus(eventFromDb.getId(), RequestStatus.CONFIRMED));
+        List<String> uris = List.of("/events/" + id);
+        ResponseEntity<Object> responseEntity = statClient.getStat(LocalDateTime.now().minusYears(1000), LocalDateTime.now().plusYears(1000), uris, true);
+        int hits = 0;
+        if (responseEntity.getStatusCode().is2xxSuccessful()) {
+            try {
+                ArrayList<Map> hitsMap = (ArrayList<Map>) responseEntity.getBody();
+                hits = Integer.parseInt(String.valueOf(hitsMap.get(0).getOrDefault("hits", "0")));
+            } catch (NumberFormatException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        eventFromDb.setViews(hits);
+        return EventMapper.createEventFullDto(eventFromDb, requestRepository.countRequestByEventIdAndStatus(eventFromDb.getId(), RequestStatus.CONFIRMED));
+
     }
 }

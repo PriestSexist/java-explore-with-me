@@ -19,7 +19,7 @@ public interface AdminUserController {
 
     @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteUser(@PathVariable @Positive int userId);
+    void deleteUser(@PathVariable @PositiveOrZero int userId);
 
     @GetMapping
     List<UserDto> getAllUsers(@RequestParam List<Integer> ids,

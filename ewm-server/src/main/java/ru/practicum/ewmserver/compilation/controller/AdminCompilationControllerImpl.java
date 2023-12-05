@@ -11,7 +11,7 @@ import ru.practicum.ewmserver.compilation.dto.UpdateCompilationRequest;
 import ru.practicum.ewmserver.compilation.service.AdminCompilationService;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,7 +33,7 @@ public class AdminCompilationControllerImpl implements AdminCompilationControlle
     @Override
     @DeleteMapping("/{compId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCompilation(@PathVariable @Positive int compId) {
+    public void deleteCompilation(@PathVariable @PositiveOrZero int compId) {
         log.debug("Вызван метод deleteCompilationAdmin");
         adminCompilationService.deleteCompilation(compId);
     }
@@ -41,7 +41,7 @@ public class AdminCompilationControllerImpl implements AdminCompilationControlle
     @Override
     @PatchMapping("/{compId}")
     public CompilationDto patchCompilation(@RequestBody @Valid UpdateCompilationRequest updateCompilationRequest,
-                                           @PathVariable @Positive int compId) {
+                                           @PathVariable @PositiveOrZero int compId) {
         log.debug("Вызван метод patchCompilationAdmin");
         return adminCompilationService.patchCompilation(updateCompilationRequest, compId);
     }

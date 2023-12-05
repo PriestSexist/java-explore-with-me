@@ -57,7 +57,7 @@ public class PublicEventControllerImpl implements PublicEventController {
 
     @Override
     @GetMapping("/{id}")
-    public EventFullDto getEventById(@PathVariable @Positive int id,
+    public EventFullDto getEventById(@PathVariable @PositiveOrZero int id,
                                      HttpServletRequest request) {
 
         log.debug("Вызван метод getEventById");

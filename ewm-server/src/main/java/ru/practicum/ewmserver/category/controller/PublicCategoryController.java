@@ -16,5 +16,5 @@ public interface PublicCategoryController {
                                     @RequestParam(defaultValue = "10") @Positive int size);
 
     @GetMapping("/{catId}")
-    CategoryDto getCategoryById(@PathVariable @Positive int catId);
+    CategoryDto getCategoryById(@PathVariable @PositiveOrZero int catId);
 }

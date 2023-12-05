@@ -28,7 +28,7 @@ public class AdminEventControllerImpl implements AdminEventController {
     @Override
     @PatchMapping("/{eventId}")
     public EventFullDto patchEvent(@RequestBody @Valid UpdateEventAdminRequest updateEventAdminRequest,
-                                   @PathVariable @Positive int eventId) {
+                                   @PathVariable @PositiveOrZero int eventId) {
         log.debug("Вызван метод patchEventAdmin");
         return adminEventService.patchEvent(updateEventAdminRequest, eventId);
     }

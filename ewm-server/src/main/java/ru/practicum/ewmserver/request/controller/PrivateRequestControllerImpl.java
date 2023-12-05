@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewmserver.request.dto.ParticipationRequestDto;
 import ru.practicum.ewmserver.request.service.PrivateRequestService;
 
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 @RestController
@@ -23,23 +23,23 @@ public class PrivateRequestControllerImpl implements PrivateRequestController {
     @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ParticipationRequestDto postRequest(@PathVariable @Positive int userId,
-                                               @RequestParam @Positive int eventId) {
+    public ParticipationRequestDto postRequest(@PathVariable @PositiveOrZero int userId,
+                                               @RequestParam @PositiveOrZero int eventId) {
         log.debug("Вызван метод postRequest");
         return privateRequestService.postRequest(userId, eventId);
     }
 
     @Override
     @GetMapping
-    public List<ParticipationRequestDto> getRequests(@PathVariable @Positive int userId) {
+    public List<ParticipationRequestDto> getRequests(@PathVariable @PositiveOrZero int userId) {
         log.debug("Вызван метод getRequests");
         return privateRequestService.getRequests(userId);
     }
 
     @Override
     @PatchMapping("/{requestId}/cancel")
-    public ParticipationRequestDto cancelRequest(@PathVariable @Positive int userId,
-                                                 @PathVariable @Positive int requestId) {
+    public ParticipationRequestDto cancelRequest(@PathVariable @PositiveOrZero int userId,
+                                                 @PathVariable @PositiveOrZero int requestId) {
         log.debug("Вызван метод cancelRequest");
         return privateRequestService.cancelRequest(userId, requestId);
     }

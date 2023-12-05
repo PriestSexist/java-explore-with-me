@@ -17,7 +17,7 @@ public interface AdminEventController {
 
     @PatchMapping("/{eventId}")
     EventFullDto patchEvent(@RequestBody @Valid UpdateEventAdminRequest updateEventAdminRequest,
-                            @PathVariable @Positive int eventId);
+                            @PathVariable @PositiveOrZero int eventId);
 
     @GetMapping
     List<EventFullDto> getEvents(@RequestParam(required = false) List<Integer> users,

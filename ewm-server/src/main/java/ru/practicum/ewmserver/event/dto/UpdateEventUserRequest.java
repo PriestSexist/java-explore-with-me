@@ -22,7 +22,7 @@ public class UpdateEventUserRequest {
     @Size(min = 20, message = ErrorStrings.TOO_SHORT)
     @Size(max = 2000, message = ErrorStrings.TOO_LONG)
     private final String annotation;
-    private final int category;
+    private final Integer category;
     @Size(min = 20, message = ErrorStrings.TOO_SHORT)
     @Size(max = 7000, message = ErrorStrings.TOO_LONG)
     private final String description;
@@ -31,7 +31,7 @@ public class UpdateEventUserRequest {
     private final Location location;
     private final Boolean paid;
     @PositiveOrZero
-    private final int participantLimit;
+    private final Integer participantLimit;
     private final Boolean requestModeration;
     private final StateAction stateAction;
     @Size(min = 3, message = ErrorStrings.TOO_SHORT)

@@ -13,8 +13,6 @@ import ru.practicum.ewmserver.user.model.User;
 
 import java.time.LocalDateTime;
 
-import static ru.practicum.statdto.dto.Constants.FORMATTER;
-
 @UtilityClass
 public class EventMapper {
 
@@ -32,7 +30,6 @@ public class EventMapper {
                 .requestModeration(newEventDto.getRequestModeration())
                 .state(EventState.PENDING)
                 .title(newEventDto.getTitle())
-                .views(0)
                 .build();
 
     }
@@ -43,7 +40,7 @@ public class EventMapper {
                 .annotation(event.getAnnotation())
                 .category(CategoryMapper.createCategoryDto(event.getCategory()))
                 .confirmedRequests(confirmedRequests)
-                .eventDate(event.getEventDate().toString())
+                .eventDate(event.getEventDate())
                 .initiator(UserMapper.createUserShortDto(event.getInitiator()))
                 .paid(event.getPaid())
                 .title(event.getTitle())
@@ -52,14 +49,14 @@ public class EventMapper {
     }
 
     public static EventFullDto createEventFullDto(Event event, int confirmedRequests) {
-        EventFullDto eventFullDto = EventFullDto.builder()
+        return EventFullDto.builder()
                 .id(event.getId())
                 .annotation(event.getAnnotation())
                 .description(event.getDescription())
                 .category(CategoryMapper.createCategoryDto(event.getCategory()))
                 .confirmedRequests(confirmedRequests)
-                .createdOn(event.getCreatedOn().format(FORMATTER))
-                .eventDate(event.getEventDate().format(FORMATTER))
+                .createdOn(event.getCreatedOn())
+                .eventDate(event.getEventDate())
                 .initiator(UserMapper.createUserShortDto(event.getInitiator()))
                 .location(event.getLocation())
                 .paid(event.getPaid())
@@ -68,13 +65,7 @@ public class EventMapper {
                 .state(event.getState())
                 .title(event.getTitle())
                 .views(event.getViews())
+                .publishedOn(event.getPublishedOn())
                 .build();
-
-        if (event.getPublishedOn() != null) {
-            eventFullDto.setPublishedOn(event.getPublishedOn().format(FORMATTER));
-        } else {
-            eventFullDto.setPublishedOn(null);
-        }
-        return eventFullDto;
     }
 }

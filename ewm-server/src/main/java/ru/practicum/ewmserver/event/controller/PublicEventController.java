@@ -29,6 +29,6 @@ public interface PublicEventController {
                                   HttpServletRequest request);
 
     @GetMapping("/{id}")
-    EventFullDto getEventById(@PathVariable @Positive int id,
+    EventFullDto getEventById(@PathVariable @PositiveOrZero int id,
                               HttpServletRequest request);
 }

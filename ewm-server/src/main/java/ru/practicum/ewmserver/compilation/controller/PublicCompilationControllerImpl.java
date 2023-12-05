@@ -22,7 +22,7 @@ public class PublicCompilationControllerImpl implements PublicCompilationControl
 
     @Override
     @GetMapping
-    public List<CompilationDto> getCompilation(@RequestParam boolean pinned,
+    public List<CompilationDto> getCompilation(@RequestParam(defaultValue = "false") boolean pinned,
                                                @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                                @RequestParam(defaultValue = "10") @Positive int size) {
         log.debug("Вызван метод getCompilation");
@@ -31,7 +31,7 @@ public class PublicCompilationControllerImpl implements PublicCompilationControl
 
     @Override
     @GetMapping("/{compId}")
-    public CompilationDto getCompilationById(@PathVariable @Positive int compId) {
+    public CompilationDto getCompilationById(@PathVariable @PositiveOrZero int compId) {
         log.debug("Вызван метод getCompilationById");
         return publicCompilationService.getCompilationById(compId);
     }

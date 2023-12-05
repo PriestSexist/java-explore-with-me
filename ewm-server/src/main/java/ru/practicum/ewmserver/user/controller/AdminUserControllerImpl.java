@@ -34,14 +34,14 @@ public class AdminUserControllerImpl implements AdminUserController {
     @Override
     @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable @Positive int userId) {
+    public void deleteUser(@PathVariable @PositiveOrZero int userId) {
         log.debug("Вызван метод deleteUser");
         adminUserService.deleteUser(userId);
     }
 
     @Override
     @GetMapping
-    public List<UserDto> getAllUsers(@RequestParam List<Integer> ids,
+    public List<UserDto> getAllUsers(@RequestParam(defaultValue = "") List<Integer> ids,
                                      @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                      @RequestParam(defaultValue = "10") @Positive int size) {
         log.debug("Вызван метод getAllUsers");

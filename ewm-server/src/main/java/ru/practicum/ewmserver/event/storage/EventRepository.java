@@ -17,15 +17,15 @@ import java.util.Optional;
 public interface EventRepository extends JpaRepository<Event, Integer> {
     @Query("select e " +
             "from Event as e " +
-            "where (?1 is null or e.initiator.id in ?1) " +
-            "and (?2 is null or e.state in ?2) " +
-            "and (?3 is null or e.category.id in ?3) " +
-            "and (e.eventDate between ?4 and ?5) ")
-    Page<Event> getByUserIdsStatesCategories(List<Integer> userIds,
-                                             List<EventState> states,
-                                             List<Integer> categoryIds,
-                                             LocalDateTime start,
-                                             LocalDateTime end,
+            "where (:userIds is null or e.initiator.id in :userIds) " +
+            "and (:states is null or e.state in :states) " +
+            "and (:categoryIds is null or e.category.id in :categoryIds) " +
+            "and (e.eventDate between :start and :end) ")
+    Page<Event> getByUserIdsStatesCategories(@Param("userIds") List<Integer> userIds,
+                                             @Param("states") List<EventState> states,
+                                             @Param("categoryIds") List<Integer> categoryIds,
+                                             @Param("start") LocalDateTime start,
+                                             @Param("end") LocalDateTime end,
                                              Pageable page);
 
     @Query("select e " +

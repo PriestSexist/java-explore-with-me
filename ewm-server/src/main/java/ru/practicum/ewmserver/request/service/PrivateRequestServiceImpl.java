@@ -47,7 +47,7 @@ public class PrivateRequestServiceImpl implements PrivateRequestService {
             throw new DataConflictException(String.format(REQUEST_FROM_OWNER, userId, eventId));
         }
 
-        if (eventFromDb.getState().equals(EventState.PUBLISHED)) {
+        if (!eventFromDb.getState().equals(EventState.PUBLISHED)) {
             throw new DataConflictException(String.format(REQUEST_FOR_NOT_PUBLISHED_EVENT, eventId));
         }
 

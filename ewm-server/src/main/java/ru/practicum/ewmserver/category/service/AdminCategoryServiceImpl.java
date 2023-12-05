@@ -43,11 +43,18 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
     public CategoryDto patchCategoryAdmin(CategoryDto categoryDto, int categoryId) {
+
         Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new EntityNotFoundException(String.format(CATEGORY_NOT_FOUND_BY_ID, categoryId)));
 
-        if (!categoryDto.getName().isBlank()) {
-            category.setName(categoryDto.getName());
+        if (categoryDto.getName().equals(category.getName())) {
+            return CategoryMapper.createCategoryDto(category);
         }
+
+        if (categoryRepository.existsByName(categoryDto.getName())) {
+            throw new DataConflictException(CATEGORY_WITH_THIS_NAME_ALREADY_EXISTS);
+        }
+
+        category.setName(categoryDto.getName());
 
         return CategoryMapper.createCategoryDto(categoryRepository.save(category));
     }

@@ -75,55 +75,57 @@ public class AdminEventServiceImpl implements AdminEventService {
                 default:
                     throw new IllegalArgumentException(INVALID_ACTION + action);
             }
-
-            if (updateEventAdminRequest.getEventDate() != null) {
-                if (LocalDateTime.parse(updateEventAdminRequest.getEventDate(), Constants.FORMATTER).isBefore(LocalDateTime.now().plusHours(1))) {
-                    throw new InvalidRequestException(CANNOT_PUBLISH_EVENT_LESS_THEN_ONE_HOUR_ON_SITE);
-                }
-                eventFromDb.setEventDate(LocalDateTime.parse(updateEventAdminRequest.getEventDate(), Constants.FORMATTER));
-            }
-
-            if (updateEventAdminRequest.getAnnotation() != null) {
-                eventFromDb.setAnnotation(eventFromDb.getAnnotation());
-            }
-
-            if (updateEventAdminRequest.getCategory() != eventFromDb.getCategory().getId()) {
-                Category category = categoryRepository.findById(updateEventAdminRequest.getCategory()).orElseThrow(() -> new EntityNotFoundException(String.format(CATEGORY_NOT_FOUND_BY_ID, updateEventAdminRequest.getCategory())));
-                eventFromDb.setCategory(category);
-            }
-
-            if (updateEventAdminRequest.getDescription() != null) {
-                eventFromDb.setDescription(updateEventAdminRequest.getDescription());
-            }
-
-            if (updateEventAdminRequest.getLocation() != null) {
-                eventFromDb.setLocation(updateEventAdminRequest.getLocation());
-            }
-
-            if (updateEventAdminRequest.getPaid() != null) {
-                eventFromDb.setPaid(updateEventAdminRequest.getPaid());
-            }
-
-            if (updateEventAdminRequest.getParticipantLimit() != null) {
-                eventFromDb.setParticipantLimit(updateEventAdminRequest.getParticipantLimit());
-            }
-
-            if (updateEventAdminRequest.getRequestModeration() != null) {
-                eventFromDb.setRequestModeration(updateEventAdminRequest.getRequestModeration());
-            }
-
-            if (updateEventAdminRequest.getTitle() != null) {
-                eventFromDb.setTitle(updateEventAdminRequest.getTitle());
-            }
         }
-        return null;
+
+        if (updateEventAdminRequest.getEventDate() != null) {
+            if (LocalDateTime.parse(updateEventAdminRequest.getEventDate(), Constants.FORMATTER).isBefore(LocalDateTime.now().plusHours(1))) {
+                throw new InvalidRequestException(CANNOT_PUBLISH_EVENT_LESS_THEN_ONE_HOUR_ON_SITE);
+            }
+            eventFromDb.setEventDate(LocalDateTime.parse(updateEventAdminRequest.getEventDate(), Constants.FORMATTER));
+        }
+
+        if (updateEventAdminRequest.getAnnotation() != null) {
+            eventFromDb.setAnnotation(updateEventAdminRequest.getAnnotation());
+        }
+
+        if (updateEventAdminRequest.getCategory() != null && updateEventAdminRequest.getCategory() != eventFromDb.getCategory().getId()) {
+            Category category = categoryRepository.findById(updateEventAdminRequest.getCategory()).orElseThrow(() -> new EntityNotFoundException(String.format(CATEGORY_NOT_FOUND_BY_ID, updateEventAdminRequest.getCategory())));
+            eventFromDb.setCategory(category);
+        }
+
+        if (updateEventAdminRequest.getDescription() != null) {
+            eventFromDb.setDescription(updateEventAdminRequest.getDescription());
+        }
+
+        if (updateEventAdminRequest.getLocation() != null) {
+            eventFromDb.setLocation(updateEventAdminRequest.getLocation());
+        }
+
+        if (updateEventAdminRequest.getPaid() != null) {
+            eventFromDb.setPaid(updateEventAdminRequest.getPaid());
+        }
+
+        if (updateEventAdminRequest.getRequestModeration() != null) {
+            eventFromDb.setRequestModeration(updateEventAdminRequest.getRequestModeration());
+        }
+
+        if (updateEventAdminRequest.getTitle() != null) {
+            eventFromDb.setTitle(updateEventAdminRequest.getTitle());
+        }
+
+        if (updateEventAdminRequest.getParticipantLimit() != null) {
+            eventFromDb.setParticipantLimit(updateEventAdminRequest.getParticipantLimit());
+        }
+
+        return EventMapper.createEventFullDto(eventRepository.save(eventFromDb), requestRepository.countRequestByEventIdAndStatus(eventFromDb.getId(), RequestStatus.CONFIRMED));
+
     }
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public List<EventFullDto> getEvents(List<Integer> usersIds, List<String> states, List<Integer> categories, LocalDateTime rangeStart, LocalDateTime rangeEnd, int from, int size) {
 
-        List<EventState> eventStates = new ArrayList<>();
+        List<EventState> eventStates = null;
         if (rangeStart == null) {
             rangeStart = LocalDateTime.now();
             rangeEnd = rangeStart.plusYears(1000);
@@ -134,6 +136,7 @@ public class AdminEventServiceImpl implements AdminEventService {
         }
 
         if (states != null) {
+            eventStates = new ArrayList<>();
             for (String state : states) {
                 if (!EnumUtils.isValidEnum(EventState.class, state)) {
                     throw new InvalidRequestException(INVALID_STATE + state);

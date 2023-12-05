@@ -15,28 +15,28 @@ public interface PrivateEventController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     EventFullDto postEvent(@RequestBody @Valid NewEventDto newEventDto,
-                           @PathVariable @Positive int userId);
+                           @PathVariable @PositiveOrZero int userId);
 
     @GetMapping
-    List<EventShortDto> getUserEvents(@PathVariable @Positive int userId,
+    List<EventShortDto> getUserEvents(@PathVariable @PositiveOrZero int userId,
                                       @RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                       @RequestParam(defaultValue = "10") @Positive int size);
 
     @GetMapping("/{eventId}")
-    EventFullDto getEventById(@PathVariable @Positive int userId,
-                              @PathVariable @Positive int eventId);
+    EventFullDto getEventById(@PathVariable @PositiveOrZero int userId,
+                              @PathVariable @PositiveOrZero int eventId);
 
     @PatchMapping("/{eventId}")
     EventFullDto patchEvent(@RequestBody @Valid UpdateEventUserRequest updateEventUserRequest,
-                            @PathVariable @Positive int userId,
-                            @PathVariable @Positive int eventId);
+                            @PathVariable @PositiveOrZero int userId,
+                            @PathVariable @PositiveOrZero int eventId);
 
     @GetMapping("/{eventId}/requests")
-    List<ParticipationRequestDto> getRequestsInEvent(@PathVariable @Positive int userId,
-                                                     @PathVariable @Positive int eventId);
+    List<ParticipationRequestDto> getRequestsInEvent(@PathVariable @PositiveOrZero int userId,
+                                                     @PathVariable @PositiveOrZero int eventId);
 
     @PatchMapping("/{eventId}/requests")
     EventRequestStatusUpdateResult patchRequests(@RequestBody EventRequestStatusUpdateRequest eventRequestStatusUpdateRequest,
-                                                 @PathVariable @Positive int userId,
-                                                 @PathVariable @Positive int eventId);
+                                                 @PathVariable @PositiveOrZero int userId,
+                                                 @PathVariable @PositiveOrZero int eventId);
 }

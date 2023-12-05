@@ -22,7 +22,6 @@ import ru.practicum.ewmserver.request.model.RequestStatus;
 import ru.practicum.ewmserver.request.storage.RequestRepository;
 import ru.practicum.ewmserver.user.model.User;
 import ru.practicum.ewmserver.user.storage.UserRepository;
-import ru.practicum.statdto.dto.Constants;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -45,7 +44,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
     public EventFullDto postEvent(NewEventDto newEventDto, int userId) {
 
         if (LocalDateTime.now().plusHours(2).isAfter(newEventDto.getEventDate())) {
-            throw new InvalidRequestException(EVENT_DATE_2_HOURS_MIN_SHOULD_BE + LocalDateTime.parse(newEventDto.getEventDate().toString(), Constants.FORMATTER));
+            throw new InvalidRequestException(EVENT_DATE_2_HOURS_MIN_SHOULD_BE + newEventDto.getEventDate());
         }
 
         User userFromDb = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException(String.format(USER_NOT_FOUND_BY_ID, userId)));
@@ -125,7 +124,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
             eventFromDb.setAnnotation(updateEventUserRequest.getAnnotation());
         }
 
-        if ((updateEventUserRequest.getCategory() != (eventFromDb.getCategory().getId()))) {
+        if (updateEventUserRequest.getCategory() != null && updateEventUserRequest.getCategory() != (eventFromDb.getCategory().getId())) {
             Category category = categoryRepository.findById(updateEventUserRequest.getCategory()).orElseThrow(() -> new EntityNotFoundException(String.format(CATEGORY_NOT_FOUND_BY_ID, updateEventUserRequest.getCategory())));
             eventFromDb.setCategory(category);
         }
@@ -150,7 +149,10 @@ public class PrivateEventServiceImpl implements PrivateEventService {
             eventFromDb.setTitle(updateEventUserRequest.getTitle());
         }
 
-        eventFromDb.setParticipantLimit(updateEventUserRequest.getParticipantLimit());
+        if (updateEventUserRequest.getParticipantLimit() != null) {
+            eventFromDb.setParticipantLimit(updateEventUserRequest.getParticipantLimit());
+        }
+
 
         return EventMapper.createEventFullDto(eventRepository.save(eventFromDb), requestRepository.countRequestByEventIdAndStatus(eventFromDb.getId(), RequestStatus.CONFIRMED));
 

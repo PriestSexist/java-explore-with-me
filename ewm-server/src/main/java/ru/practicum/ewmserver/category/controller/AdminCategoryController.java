@@ -6,19 +6,19 @@ import ru.practicum.ewmserver.category.dto.CategoryDto;
 import ru.practicum.ewmserver.category.dto.NewCategoryDto;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 public interface AdminCategoryController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    CategoryDto postCategoryAdmin(@RequestBody @Valid NewCategoryDto newCategoryDto);
+    CategoryDto postCategory(@RequestBody @Valid NewCategoryDto newCategoryDto);
 
     @DeleteMapping("/users/{catId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteCategoryAdmin(@PathVariable @Positive int catId);
+    void deleteCategory(@PathVariable @PositiveOrZero int catId);
 
     @PatchMapping("/{catId}")
-    CategoryDto patchCategoryAdmin(@RequestBody CategoryDto categoryDto,
-                                   @PathVariable @Positive int catId);
+    CategoryDto patchCategory(@RequestBody @Valid CategoryDto categoryDto,
+                              @PathVariable @PositiveOrZero int catId);
 }

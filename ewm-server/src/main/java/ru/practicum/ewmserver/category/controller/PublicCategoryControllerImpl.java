@@ -30,7 +30,7 @@ public class PublicCategoryControllerImpl implements PublicCategoryController {
 
     @Override
     @GetMapping("/{catId}")
-    public CategoryDto getCategoryById(@PathVariable @Positive int catId) {
+    public CategoryDto getCategoryById(@PathVariable @PositiveOrZero int catId) {
         log.debug("Вызван метод getCategoryById");
         return publicCategoryService.getCategoryById(catId);
     }

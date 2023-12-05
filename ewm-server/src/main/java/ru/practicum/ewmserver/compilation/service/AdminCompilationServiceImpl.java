@@ -41,7 +41,7 @@ public class AdminCompilationServiceImpl implements AdminCompilationService {
     @Transactional(propagation = Propagation.REQUIRED)
     public CompilationDto postCompilation(NewCompilationDto compilationDto) {
 
-        if (!compilationRepository.existsByTitle(compilationDto.getTitle())) {
+        if (compilationRepository.existsByTitle(compilationDto.getTitle())) {
             throw new DataConflictException(String.format(COMPILATION_NOT_FOUND_BY_TITLE, compilationDto.getTitle()));
         }
 
