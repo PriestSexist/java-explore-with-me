@@ -1,5 +1,6 @@
 package ru.practicum.statclient;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
@@ -21,6 +22,7 @@ public class StatClient extends BaseClient {
     private static final String START = "start";
     private static final String END = "end";
 
+    @Autowired
     public StatClient(@Value("http://localhost:9090") String serverUrl, RestTemplateBuilder builder) {
         super(
                 builder

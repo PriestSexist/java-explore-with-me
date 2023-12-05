@@ -13,6 +13,8 @@ services:
 
   stats-db:
     image: postgres:14-alpine
+    volumes:
+      - /var/lib/postgresql/data/
     ports:
       - "5432:5432"
     environment:
@@ -34,9 +36,12 @@ services:
 
   ewm-db:
     image: postgres:14-alpine
+    volumes:
+      - /var/lib/postgresql/data/
     ports:
-      - "5433:5433"
+      - "5433:5432"
     environment:
       - POSTGRES_DB=ewm
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
+
