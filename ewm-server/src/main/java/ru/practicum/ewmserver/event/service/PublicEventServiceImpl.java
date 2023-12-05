@@ -31,7 +31,6 @@ import static ru.practicum.ewmserver.error.constants.ErrorStrings.INVAlID_TIME_P
 
 @Service
 @RequiredArgsConstructor
-@ComponentScan(basePackages = {"ru.practicum.statclient"})
 public class PublicEventServiceImpl implements PublicEventService {
 
     private final EventRepository eventRepository;
