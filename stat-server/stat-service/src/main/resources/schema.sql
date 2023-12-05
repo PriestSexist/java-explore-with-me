@@ -1,6 +1,3 @@
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
-
 create table if not exists endpoint_hit
 (
     id       serial
