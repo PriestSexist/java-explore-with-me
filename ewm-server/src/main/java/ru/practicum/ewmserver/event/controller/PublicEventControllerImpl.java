@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewmserver.event.dto.EventFullDto;
 import ru.practicum.ewmserver.event.dto.EventShortDto;
 import ru.practicum.ewmserver.event.service.PublicEventService;
-import ru.practicum.statclient.BaseClient;
 import ru.practicum.statclient.StatClient;
 import ru.practicum.statdto.dto.Constants;
 import ru.practicum.statdto.dto.EndpointHitDto;
@@ -25,10 +24,11 @@ import java.util.List;
 @RequestMapping("/events")
 @RequiredArgsConstructor
 @Validated
+@ComponentScan (basePackages = { "ru.practicum.statclient"})
 public class PublicEventControllerImpl implements PublicEventController {
 
     private final PublicEventService publicEventService;
-    private final BaseClient statClient;
+    private final StatClient statClient;
 
     @Override
     @GetMapping
