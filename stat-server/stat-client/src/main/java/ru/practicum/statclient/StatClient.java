@@ -23,7 +23,7 @@ public class StatClient extends BaseClient {
     private static final String END = "end";
 
     @Autowired
-    public StatClient(@Value("http://localhost:9090") String serverUrl, RestTemplateBuilder builder) {
+    public StatClient(@Value("${stat-service.url}") String serverUrl, RestTemplateBuilder builder) {
         super(
                 builder
                         .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
