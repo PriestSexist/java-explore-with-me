@@ -7,7 +7,9 @@ services:
     depends_on:
       - stats-db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/stats-db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/stat
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
 
   stats-db:
     image: postgres:14-alpine
@@ -28,17 +30,18 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5433/ewm-db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/ewm
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
 
   ewm-db:
     image: postgres:14-alpine
     volumes:
       - /var/lib/postgresql/data/
     ports:
-      - "5433:5433"
+      - "5433:5432"
     environment:
-      - POSTGRES_DB=ewm-db
+      - POSTGRES_DB=ewm
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-    command: -p 5433
 
