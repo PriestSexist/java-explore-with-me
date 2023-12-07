@@ -27,6 +27,7 @@ public class PublicCompilationControllerImpl {
         log.debug("Вызван метод getCompilation");
         return publicCompilationService.getCompilation(pinned, from, size);
     }
+
     @GetMapping("/{compId}")
     public CompilationDto getCompilationById(@PathVariable @PositiveOrZero int compId) {
         log.debug("Вызван метод getCompilationById");
