@@ -61,7 +61,7 @@ public class PublicEventServiceImpl implements PublicEventService {
 
         Page<Event> events;
 
-        if (categories.isEmpty()) {
+        if (categories!= null && categories.isEmpty()) {
             categories = null;
         }
 

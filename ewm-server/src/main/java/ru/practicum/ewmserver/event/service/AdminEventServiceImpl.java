@@ -135,15 +135,15 @@ public class AdminEventServiceImpl implements AdminEventService {
             throw new InvalidRequestException(INVAlID_TIME_PARAMETERS);
         }
 
-        if (usersIds.isEmpty()) {
+        if (usersIds!= null && usersIds.isEmpty()) {
             usersIds = null;
         }
 
-        if (states.isEmpty()) {
+        if (states!= null && states.isEmpty()) {
             states = null;
         }
 
-        if (categories.isEmpty()) {
+        if (categories!= null && categories.isEmpty()) {
             categories = null;
         }
 
