@@ -16,11 +16,10 @@ import java.util.List;
 @RequestMapping("/users/{userId}/requests")
 @RequiredArgsConstructor
 @Validated
-public class PrivateRequestControllerImpl implements PrivateRequestController {
+public class PrivateRequestControllerImpl {
 
     private final PrivateRequestService privateRequestService;
 
-    @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ParticipationRequestDto postRequest(@PathVariable @PositiveOrZero int userId,
@@ -29,14 +28,12 @@ public class PrivateRequestControllerImpl implements PrivateRequestController {
         return privateRequestService.postRequest(userId, eventId);
     }
 
-    @Override
     @GetMapping
     public List<ParticipationRequestDto> getRequests(@PathVariable @PositiveOrZero int userId) {
         log.debug("Вызван метод getRequests");
         return privateRequestService.getRequests(userId);
     }
 
-    @Override
     @PatchMapping("/{requestId}/cancel")
     public ParticipationRequestDto cancelRequest(@PathVariable @PositiveOrZero int userId,
                                                  @PathVariable @PositiveOrZero int requestId) {

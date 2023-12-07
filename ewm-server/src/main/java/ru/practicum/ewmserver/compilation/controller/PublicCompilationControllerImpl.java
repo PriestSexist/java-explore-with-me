@@ -16,11 +16,10 @@ import java.util.List;
 @RequestMapping("/compilations")
 @RequiredArgsConstructor
 @Validated
-public class PublicCompilationControllerImpl implements PublicCompilationController {
+public class PublicCompilationControllerImpl {
 
     private final PublicCompilationService publicCompilationService;
 
-    @Override
     @GetMapping
     public List<CompilationDto> getCompilation(@RequestParam(defaultValue = "false") boolean pinned,
                                                @RequestParam(defaultValue = "0") @PositiveOrZero int from,
@@ -28,8 +27,7 @@ public class PublicCompilationControllerImpl implements PublicCompilationControl
         log.debug("Вызван метод getCompilation");
         return publicCompilationService.getCompilation(pinned, from, size);
     }
-
-    @Override
+    
     @GetMapping("/{compId}")
     public CompilationDto getCompilationById(@PathVariable @PositiveOrZero int compId) {
         log.debug("Вызван метод getCompilationById");

@@ -21,11 +21,10 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/admin/events")
 @Validated
-public class AdminEventControllerImpl implements AdminEventController {
+public class AdminEventControllerImpl {
 
     private final AdminEventService adminEventService;
 
-    @Override
     @PatchMapping("/{eventId}")
     public EventFullDto patchEvent(@RequestBody @Valid UpdateEventAdminRequest updateEventAdminRequest,
                                    @PathVariable @PositiveOrZero int eventId) {
@@ -33,7 +32,6 @@ public class AdminEventControllerImpl implements AdminEventController {
         return adminEventService.patchEvent(updateEventAdminRequest, eventId);
     }
 
-    @Override
     @GetMapping
     public List<EventFullDto> getEvents(@RequestParam(required = false) List<Integer> users,
                                         @RequestParam(required = false) List<String> states,

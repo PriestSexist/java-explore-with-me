@@ -19,11 +19,10 @@ import java.util.List;
 @RequestMapping("/users/{userId}/events")
 @Slf4j
 @Validated
-public class PrivateEventControllerImpl implements PrivateEventController {
+public class PrivateEventControllerImpl {
 
     private final PrivateEventService privateEventService;
 
-    @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public EventFullDto postEvent(@RequestBody @Valid NewEventDto newEventDto,
@@ -32,7 +31,6 @@ public class PrivateEventControllerImpl implements PrivateEventController {
         return privateEventService.postEvent(newEventDto, userId);
     }
 
-    @Override
     @GetMapping
     public List<EventShortDto> getUserEvents(@PathVariable @PositiveOrZero int userId,
                                              @RequestParam(defaultValue = "0") @PositiveOrZero int from,
@@ -41,7 +39,6 @@ public class PrivateEventControllerImpl implements PrivateEventController {
         return privateEventService.getUserEvents(userId, from, size);
     }
 
-    @Override
     @GetMapping("/{eventId}")
     public EventFullDto getEventById(@PathVariable @PositiveOrZero int userId,
                                      @PathVariable @PositiveOrZero int eventId) {
@@ -49,7 +46,6 @@ public class PrivateEventControllerImpl implements PrivateEventController {
         return privateEventService.getEventById(userId, eventId);
     }
 
-    @Override
     @PatchMapping("/{eventId}")
     public EventFullDto patchEvent(@RequestBody @Valid UpdateEventUserRequest updateEventUserRequest,
                                    @PathVariable @PositiveOrZero int userId,
@@ -58,7 +54,6 @@ public class PrivateEventControllerImpl implements PrivateEventController {
         return privateEventService.patchEvent(updateEventUserRequest, userId, eventId);
     }
 
-    @Override
     @GetMapping("/{eventId}/requests")
     public List<ParticipationRequestDto> getRequestsInEvent(@PathVariable @PositiveOrZero int userId,
                                                             @PathVariable @PositiveOrZero int eventId) {
@@ -66,7 +61,6 @@ public class PrivateEventControllerImpl implements PrivateEventController {
         return privateEventService.getRequestsInEvent(userId, eventId);
     }
 
-    @Override
     @PatchMapping("/{eventId}/requests")
     public EventRequestStatusUpdateResult patchRequests(@RequestBody EventRequestStatusUpdateRequest eventRequestStatusUpdateRequest,
                                                         @PathVariable @PositiveOrZero int userId,

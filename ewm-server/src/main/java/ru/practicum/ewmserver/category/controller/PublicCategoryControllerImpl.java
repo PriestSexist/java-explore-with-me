@@ -16,11 +16,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/categories")
 @Validated
-public class PublicCategoryControllerImpl implements PublicCategoryController {
+public class PublicCategoryControllerImpl {
 
     private final PublicCategoryService publicCategoryService;
 
-    @Override
     @GetMapping
     public List<CategoryDto> getCategories(@RequestParam(defaultValue = "0") @PositiveOrZero int from,
                                            @RequestParam(defaultValue = "10") @Positive int size) {
@@ -28,7 +27,6 @@ public class PublicCategoryControllerImpl implements PublicCategoryController {
         return publicCategoryService.getCategories(from, size);
     }
 
-    @Override
     @GetMapping("/{catId}")
     public CategoryDto getCategoryById(@PathVariable @PositiveOrZero int catId) {
         log.debug("Вызван метод getCategoryById");

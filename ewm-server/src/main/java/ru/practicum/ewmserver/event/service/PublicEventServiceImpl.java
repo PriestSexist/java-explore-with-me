@@ -61,6 +61,10 @@ public class PublicEventServiceImpl implements PublicEventService {
 
         Page<Event> events;
 
+        if (categories.isEmpty()) {
+            categories = null;
+        }
+
         if (!paid) {
             if (onlyAvailable) {
                 events = eventRepository.getBySearchAvailable(EventState.PUBLISHED, text, categories, rangeStart, rangeEnd, sort, page);

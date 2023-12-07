@@ -24,13 +24,12 @@ import java.util.List;
 @RequestMapping("/events")
 @RequiredArgsConstructor
 @Validated
-@ComponentScan (basePackages = { "ru.practicum.statclient"})
-public class PublicEventControllerImpl implements PublicEventController {
+@ComponentScan(basePackages = {"ru.practicum.statclient"})
+public class PublicEventControllerImpl {
 
     private final PublicEventService publicEventService;
     private final StatClient statClient;
 
-    @Override
     @GetMapping
     public List<EventShortDto> getEvents(@RequestParam(defaultValue = "") String text,
                                          @RequestParam(required = false) List<Integer> categories,
@@ -55,7 +54,6 @@ public class PublicEventControllerImpl implements PublicEventController {
         return publicEventService.getEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
     }
 
-    @Override
     @GetMapping("/{id}")
     public EventFullDto getEventById(@PathVariable @PositiveOrZero int id,
                                      HttpServletRequest request) {

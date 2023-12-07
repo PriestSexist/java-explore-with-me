@@ -51,10 +51,8 @@ public class PrivateRequestServiceImpl implements PrivateRequestService {
             throw new DataConflictException(String.format(REQUEST_FOR_NOT_PUBLISHED_EVENT, eventId));
         }
 
-        if (eventFromDb.getParticipantLimit() > 0) {
-            if (requestRepository.countRequestByEventIdAndStatus(eventId, RequestStatus.CONFIRMED) >= eventFromDb.getParticipantLimit()) {
-                throw new DataConflictException(String.format(EVENT_IS_FULL, eventId));
-            }
+        if (eventFromDb.getParticipantLimit() > 0 && requestRepository.countRequestByEventIdAndStatus(eventId, RequestStatus.CONFIRMED) >= eventFromDb.getParticipantLimit()) {
+            throw new DataConflictException(String.format(EVENT_IS_FULL, eventId));
         }
 
         Request request = RequestMapper.createRequest(userFromDb, eventFromDb);

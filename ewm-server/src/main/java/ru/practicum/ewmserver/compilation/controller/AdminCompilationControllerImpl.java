@@ -18,11 +18,10 @@ import javax.validation.constraints.PositiveOrZero;
 @Slf4j
 @RequestMapping("/admin/compilations")
 @Validated
-public class AdminCompilationControllerImpl implements AdminCompilationController {
+public class AdminCompilationControllerImpl {
 
     private final AdminCompilationService adminCompilationService;
 
-    @Override
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CompilationDto postCompilation(@RequestBody @Valid NewCompilationDto newCompilationDto) {
@@ -30,7 +29,6 @@ public class AdminCompilationControllerImpl implements AdminCompilationControlle
         return adminCompilationService.postCompilation(newCompilationDto);
     }
 
-    @Override
     @DeleteMapping("/{compId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCompilation(@PathVariable @PositiveOrZero int compId) {
@@ -38,7 +36,6 @@ public class AdminCompilationControllerImpl implements AdminCompilationControlle
         adminCompilationService.deleteCompilation(compId);
     }
 
-    @Override
     @PatchMapping("/{compId}")
     public CompilationDto patchCompilation(@RequestBody @Valid UpdateCompilationRequest updateCompilationRequest,
                                            @PathVariable @PositiveOrZero int compId) {

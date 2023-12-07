@@ -50,9 +50,8 @@ public class AdminUserServiceImpl implements AdminUserService {
         if (ids.isEmpty()) {
             PageRequest pageRequest = PageRequest.of(from > 0 ? from / size : 0, size);
             return userRepository.findAll(pageRequest).map(UserMapper::createUserDto).getContent();
-        } else {
-            return userRepository.getAllUsersById(ids).stream().map(UserMapper::createUserDto).collect(Collectors.toList());
         }
+        return userRepository.getAllUsersById(ids).stream().map(UserMapper::createUserDto).collect(Collectors.toList());
 
 
     }

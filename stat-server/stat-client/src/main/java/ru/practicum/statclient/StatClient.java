@@ -48,7 +48,7 @@ public class StatClient extends BaseClient {
         );
 
         StringJoiner pathBuilder = new StringJoiner("&", "/stats?start={start}&end={end}", "");
-        if (Objects.nonNull(uris) && !uris.isEmpty()) {
+        if (!uris.isEmpty()) {
             uris.forEach(uri -> pathBuilder.add("&uris=" + uri));
         }
         if (Objects.nonNull(unique)) {

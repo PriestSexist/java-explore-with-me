@@ -17,11 +17,10 @@ import javax.validation.constraints.PositiveOrZero;
 @Slf4j
 @RequestMapping("/admin/categories")
 @Validated
-public class AdminCategoryControllerImpl implements AdminCategoryController {
+public class AdminCategoryControllerImpl {
 
     private final AdminCategoryService adminCategoryService;
 
-    @Override
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryDto postCategory(@RequestBody @Valid NewCategoryDto newCategoryDto) {
@@ -29,7 +28,6 @@ public class AdminCategoryControllerImpl implements AdminCategoryController {
         return adminCategoryService.postCategoryAdmin(newCategoryDto);
     }
 
-    @Override
     @DeleteMapping("/{catId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable @PositiveOrZero int catId) {
@@ -37,7 +35,6 @@ public class AdminCategoryControllerImpl implements AdminCategoryController {
         adminCategoryService.deleteCategoryAdmin(catId);
     }
 
-    @Override
     @PatchMapping("/{catId}")
     public CategoryDto patchCategory(@RequestBody @Valid CategoryDto categoryDto,
                                      @PathVariable @PositiveOrZero int catId) {
