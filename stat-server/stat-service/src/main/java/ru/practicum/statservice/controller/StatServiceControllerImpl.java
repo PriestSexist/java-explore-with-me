@@ -17,19 +17,17 @@ import static ru.practicum.statdto.dto.Constants.DATETIME_FORMAT;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class StatServiceControllerImpl implements StatServiceController {
+public class StatServiceControllerImpl {
     private final StatServiceService statServiceService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/hit")
-    @Override
     public EndpointHitDto postEndpoint(@RequestBody EndpointHitDto endpointHitDto) {
         log.debug("Вызван метод postEndpoint");
         return statServiceService.postEndpointHit(endpointHitDto);
     }
 
     @GetMapping("/stats")
-    @Override
     public List<ViewStatsDto> getStat(@RequestParam @DateTimeFormat(pattern = DATETIME_FORMAT) LocalDateTime start,
                                       @RequestParam @DateTimeFormat(pattern = DATETIME_FORMAT) LocalDateTime end,
                                       @RequestParam(defaultValue = "") List<String> uris,

@@ -1,9 +1,11 @@
 package ru.practicum.statservice.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 import ru.practicum.statdto.dto.EndpointHitDto;
 import ru.practicum.statdto.dto.ViewStatsDto;
 import ru.practicum.statservice.mapper.EndPointHitMapper;
@@ -30,6 +32,10 @@ public class StatServiceServiceImpl implements StatServiceService {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     @Override
     public List<ViewStatsDto> getStat(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
+        if (end.isBefore(start)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Start must be before end");
+        }
+
         if (unique) {
             if (uris.isEmpty()) {
                 return statServiceRepository.getStatNoUrisUniqueIp(start, end);
