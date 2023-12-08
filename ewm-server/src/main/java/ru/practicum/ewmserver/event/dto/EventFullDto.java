@@ -14,6 +14,7 @@ import ru.practicum.statdto.dto.Constants;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -47,4 +48,5 @@ public class EventFullDto {
     @NotBlank
     private final String title;
     private final int views;
+    private List<CommentDto> comments;
 }

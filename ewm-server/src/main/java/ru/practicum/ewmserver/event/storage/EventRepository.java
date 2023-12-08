@@ -94,7 +94,7 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
                                    @Param("category") List<Integer> categoryIds,
                                    @Param("start") LocalDateTime start,
                                    @Param("end") LocalDateTime end,
-                                   @Param("paid") Boolean paid,
+                                   @Param("paid") boolean paid,
                                    @Param("sort") String sort,
                                    Pageable page);
 

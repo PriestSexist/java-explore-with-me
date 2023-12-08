@@ -12,6 +12,8 @@ import ru.practicum.ewmserver.user.mapper.UserMapper;
 import ru.practicum.ewmserver.user.model.User;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 @UtilityClass
 public class EventMapper {
@@ -49,7 +51,7 @@ public class EventMapper {
     }
 
     public static EventFullDto createEventFullDto(Event event, int confirmedRequests) {
-        return EventFullDto.builder()
+        EventFullDto eventFullDto = EventFullDto.builder()
                 .id(event.getId())
                 .annotation(event.getAnnotation())
                 .description(event.getDescription())
@@ -67,5 +69,13 @@ public class EventMapper {
                 .views(event.getViews())
                 .publishedOn(event.getPublishedOn())
                 .build();
+
+        if (event.getComments() == null) {
+            eventFullDto.setComments(new ArrayList<>());
+        } else {
+            eventFullDto.setComments(event.getComments().stream().map(CommentMapper::createCommentDto).collect(Collectors.toList()));
+        }
+
+        return eventFullDto;
     }
 }
