@@ -68,7 +68,7 @@ public class EventMapper {
                 .title(event.getTitle())
                 .views(event.getViews())
                 .publishedOn(event.getPublishedOn())
-                .comments((event.getComments() == null) ? new ArrayList<>() : event.getComments().stream().map(CommentMapper::createCommentDto).collect(Collectors.toList()) )
+                .comments((event.getComments() == null) ? new ArrayList<>() : event.getComments().stream().map(CommentMapper::createCommentDto).collect(Collectors.toList()))
                 .build();
     }
 }
