@@ -19,7 +19,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "text")
+    @Column(name = "content")
     private String text;
     @ManyToOne
     @JoinColumn(name = "event_id")

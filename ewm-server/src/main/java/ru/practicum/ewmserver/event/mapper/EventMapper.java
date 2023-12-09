@@ -51,7 +51,7 @@ public class EventMapper {
     }
 
     public static EventFullDto createEventFullDto(Event event, int confirmedRequests) {
-        EventFullDto eventFullDto = EventFullDto.builder()
+        return EventFullDto.builder()
                 .id(event.getId())
                 .annotation(event.getAnnotation())
                 .description(event.getDescription())
@@ -68,14 +68,7 @@ public class EventMapper {
                 .title(event.getTitle())
                 .views(event.getViews())
                 .publishedOn(event.getPublishedOn())
+                .comments((event.getComments() == null) ? new ArrayList<>() : event.getComments().stream().map(CommentMapper::createCommentDto).collect(Collectors.toList()) )
                 .build();
-
-        if (event.getComments() == null) {
-            eventFullDto.setComments(new ArrayList<>());
-        } else {
-            eventFullDto.setComments(event.getComments().stream().map(CommentMapper::createCommentDto).collect(Collectors.toList()));
-        }
-
-        return eventFullDto;
     }
 }
