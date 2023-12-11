@@ -69,4 +69,40 @@ public class PrivateEventControllerImpl {
         return privateEventService.patchRequests(eventRequestStatusUpdateRequest, userId, eventId);
     }
 
+    @PostMapping("/{eventId}/comments")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CommentDto postComment(@RequestBody @Valid CommentRequest commentRequest,
+                                  @PathVariable @PositiveOrZero int userId,
+                                  @PathVariable @PositiveOrZero int eventId) {
+        log.debug("Вызван метод postComment");
+        return privateEventService.postComment(commentRequest, userId, eventId);
+    }
+
+    @PatchMapping("/{eventId}/comments/{commentId}")
+    public CommentDto patchComment(@RequestBody @Valid CommentRequest commentRequest,
+                                   @PathVariable @PositiveOrZero int userId,
+                                   @PathVariable @PositiveOrZero int eventId,
+                                   @PathVariable @PositiveOrZero int commentId) {
+        log.debug("Вызван метод patchRequests");
+        return privateEventService.patchComment(commentRequest, userId, eventId, commentId);
+    }
+
+    @DeleteMapping("/{eventId}/comments/{commentId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteComment(@PathVariable @PositiveOrZero int userId,
+                              @PathVariable @PositiveOrZero int eventId,
+                              @PathVariable @PositiveOrZero int commentId) {
+        log.debug("Вызван метод deleteComment");
+        privateEventService.deleteComment(userId, eventId, commentId);
+    }
+
+    @GetMapping("/{eventId}/comments")
+    public List<CommentDto> getComments(@PathVariable @PositiveOrZero int userId,
+                                        @PathVariable @PositiveOrZero int eventId,
+                                        @RequestParam(defaultValue = "0") @PositiveOrZero int from,
+                                        @RequestParam(defaultValue = "10") @Positive int size) {
+        log.debug("Вызван метод getComments");
+        return privateEventService.getComments(userId, eventId, from, size);
+    }
+
 }

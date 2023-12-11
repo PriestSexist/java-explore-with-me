@@ -1,0 +1,1267 @@
+{
+  "info": {
+    "_postman_id": "b2a5ebe8-6e31-4b11-9f07-72412566f96a",
+    "name": "comments tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+    "_exporter_id": "28191304"
+  },
+  "item": [
+    {
+      "name": "Post 1 user",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function() {\r",
+              "    pm.response.to.have.status(201); \r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "}); \r",
+              "\r",
+              "const source = JSON.parse(pm.request.body.raw);\r",
+              "const target = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Пользователь должен содержать поля: id, name, email\", function () {\r",
+              "pm.expect(target).to.have.property('id');\r",
+              "pm.expect(target).to.have.property('name');\r",
+              "pm.expect(target).to.have.property('email');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+              "    pm.expect(target.id).to.not.be.null;\r",
+              "    pm.expect(source.name).equal(target.name, 'Имя пользователя должно соответствовать отправленному в запросе');\r",
+              "    pm.expect(source.email).equal(target.email, 'Почта пользователя должна соответствовать отправленной в запросе');\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\" : \"viktor@gmail.com\",\r\n    \"name\" : \"viktor\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/admin/users"
+      },
+      "response": []
+    },
+    {
+      "name": "Post 2 user",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function() {\r",
+              "    pm.response.to.have.status(201); \r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});\r",
+              "\r",
+              "const source = JSON.parse(pm.request.body.raw);\r",
+              "const target = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Пользователь должен содержать поля: id, name, email\", function () {\r",
+              "pm.expect(target).to.have.property('id');\r",
+              "pm.expect(target).to.have.property('name');\r",
+              "pm.expect(target).to.have.property('email');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+              "    pm.expect(target.id).to.not.be.null;\r",
+              "    pm.expect(source.name).equal(target.name, 'Имя пользователя должно соответствовать отправленному в запросе');\r",
+              "    pm.expect(source.email).equal(target.email, 'Почта пользователя должна соответствовать отправленной в запросе');\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\" : \"perturabo@gmail.com\",\r\n    \"name\" : \"Perturabo\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/admin/users"
+      },
+      "response": []
+    },
+    {
+      "name": "Post category",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function() {\r",
+              "    pm.response.to.have.status(201); \r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "}); \r",
+              "\r",
+              "const source = JSON.parse(pm.request.body.raw);\r",
+              "const target = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Категория должена содержать поля: id, name\", function () {\r",
+              "pm.expect(target).to.have.property('id');\r",
+              "pm.expect(target).to.have.property('name');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+              "    pm.expect(target.id).to.not.be.null;\r",
+              "    pm.expect(source.name).equal(target.name, 'Имя категории должно соответствовать отправленному в запросе');\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\" : \"Horror\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/admin/categories"
+      },
+      "response": []
+    },
+    {
+      "name": "Post event from user 1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
+              "    pm.response.to.have.status(201);  \r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});\r",
+              "\r",
+              "const source = JSON.parse(pm.request.body.raw);\r",
+              "const target = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Событие должно содержать поля: id, title, annotation, category, paid, eventDate, initiator, description, participantLimit, state, createdOn, location, requestModeration\", function () {\r",
+              "pm.expect(target).to.have.property('id');\r",
+              "pm.expect(target).to.have.property('title');\r",
+              "pm.expect(target).to.have.property('annotation');\r",
+              "pm.expect(target).to.have.property('category');\r",
+              "pm.expect(target).to.have.property('paid');\r",
+              "pm.expect(target).to.have.property('eventDate');\r",
+              "pm.expect(target).to.have.property('initiator');\r",
+              "pm.expect(target).to.have.property('description');\r",
+              "pm.expect(target).to.have.property('participantLimit');\r",
+              "pm.expect(target).to.have.property('state');\r",
+              "pm.expect(target).to.have.property('createdOn');\r",
+              "pm.expect(target).to.have.property('location');\r",
+              "pm.expect(target).to.have.property('requestModeration');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+              "    pm.expect(target.id).to.not.be.null;\r",
+              "    pm.expect(target.title).equal(source.title, 'Название события должно соответствовать названию события в запросе');\r",
+              "    pm.expect(target.annotation).equal(source.annotation, 'Аннотация события должна соответствовать аннотации события в запросе');\r",
+              "    pm.expect(target.paid.toString()).equal(source.paid.toString(), 'Стоимость события должна соответствовать стоимости события в запросе');\r",
+              "    pm.expect(target.eventDate).equal(source.eventDate, 'Дата проведения события должна соответствовать дате проведения события в запросе');\r",
+              "    pm.expect(target.description).equal(source.description, 'Описание события должно соответствовать описание события в запросе');\r",
+              "    pm.expect(target.participantLimit.toString()).equal(source.participantLimit.toString(), 'Лимит участников события должно соответствовать лимиту участников события в запросе');\r",
+              "    pm.expect(target.location.lat.toString()).equal(source.location.lat.toString(), 'Широта локации проведения события должна соответствовать широте локации проведения события в запросе');\r",
+              "    pm.expect(target.location.lon.toString()).equal(source.location.lon.toString(), 'Долгота локации проведения события должна соответствовать долготе локации проведения события в запросе');\r",
+              "    pm.expect(target.requestModeration.toString()).equal(source.requestModeration.toString(), 'Необходимость модерации события должна соответствовать необходимости модерации события в запросе');\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"annotation\" : \"«Мне сложно представить, что могло привести Хоруса к этому безумию. По правде говоря, сам этот факт меня пугает. Ибо если даже лучшие из нас могут оступиться, что говорить об остальных? Лорд Манус поведет нас в бой. Семь легионов против четырех. Хорус пожалеет, что поднял это восстание» – Вулкан, примарх Саламандр\",\r\n    \"category\": 1,\r\n    \"description\": \"Одна из самых страшных, кровопролитных и судьбоносных битв в истории Империума Человечества. Произошедшее на Истваане V сражение между лоялистами (сторонниками Императора Человечества) и предателями (сторонниками Хоруса Луперкаля и сил Хаоса), стало определяющим не только для будущего человеческой расы, но и всей Галактики.\",\r\n    \"eventDate\": \"2024-10-22 12:00:00\",\r\n     \"location\": {\r\n        \"lat\": 7.7777,\r\n        \"lon\": 1.1111\r\n    },\r\n    \"paid\": false,\r\n    \"participantLimit\": 0,\r\n    \"requestModeration\": false,\r\n    \"title\": \"Резня в Зоне Высадки (англ. Drop Site Massacre)\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Try post blank comment",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function () {\r",
+              "    pm.response.to.be.badRequest;\r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"content\" : \" \"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events",
+            ":eventId",
+            "comments"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "2"
+            },
+            {
+              "key": "eventId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Try post too short comment",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function () {\r",
+              "    pm.response.to.be.badRequest;\r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"content\" : \"Avd Dominus Nox\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events",
+            ":eventId",
+            "comments"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "2"
+            },
+            {
+              "key": "eventId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Try post too long comment",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 400 и данные в формате json\", function () {\r",
+              "    pm.response.to.be.badRequest;\r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"content\" : \"Они станут моими лучшими воинами, полностью преданными мне. Будто из глины я слеплю их и обожгу в горниле войны. Железной волей и стальной мускулатурой наделены будут они. В прочную броню я облачу их и в руки дам мощнейшее оружие. Не коснутся их ни болезни, ни пороки, и немочь не запятнает их. Они будут использовать такие тактики, стратегии и машины, что ни один враг не одолеет их в битве. Они — мой оплот посреди окружающего ужаса. Они — защитники человечества. Они — верные мне космодесантники, и не познают они страха. В Галактике, окутанной тьмой, они будут стать светом. Во времена, когда волны отчаяния вздымаются высоко, они должны вознестись ещё выше. В эпоху, когда разум и надежда будут обращены в бегство, они должны стоять насмерть. Ибо они — клинки мои, моё оружие справедливости, мои воины избавления и возмездия. Они — Адептус Астартес, Ангелы Смерти, и они добьются победы, какой бы ни была цена. И ещё сотня слов, чтобы набрать нужные слова .И ещё сотня слов, чтобы набрать нужные слова. И ещё сотня слов, чтобы набрать нужные слова. И ещё сотня слов, чтобы набрать нужные слова. И ещё сотня слов, чтобы набрать нужные слова .И ещё сотня слов, чтобы набрать нужные слова. И ещё сотня слов, чтобы набрать нужные слова. И ещё сотня слов, чтобы набрать нужные слова.\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events",
+            ":eventId",
+            "comments"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "2"
+            },
+            {
+              "key": "eventId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Try post comment for non-existing user",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"text\" : \"«Слабость должна быть искоренена, чтобы человечество могло выжить. Только силе можно доверять, сыны мои. Наша воля должна быть словно сталь, наша решимость подобна адамантию; и эти истины не могут ослабнуть даже на мгновение. Мы — те немногие, кому была доверена священная обязанность обеспечить вечное правление Императора. Так тому и быть, чего бы это не стоило» – Феррус Манус, речь перед Железными Руками на Конклаве Горгона\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events",
+            ":eventId",
+            "comments"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "1000"
+            },
+            {
+              "key": "eventId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Try post comment for non-existing event",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"text\" : \"«Слабость должна быть искоренена, чтобы человечество могло выжить. Только силе можно доверять, сыны мои. Наша воля должна быть словно сталь, наша решимость подобна адамантию; и эти истины не могут ослабнуть даже на мгновение. Мы — те немногие, кому была доверена священная обязанность обеспечить вечное правление Императора. Так тому и быть, чего бы это не стоило» – Феррус Манус, речь перед Железными Руками на Конклаве Горгона\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events",
+            ":eventId",
+            "comments"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "2"
+            },
+            {
+              "key": "eventId",
+              "value": "1000"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Try post comment for not published event",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+              "    pm.response.to.have.status(409);\r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"text\" : \"«Слабость должна быть искоренена, чтобы человечество могло выжить. Только силе можно доверять, сыны мои. Наша воля должна быть словно сталь, наша решимость подобна адамантию; и эти истины не могут ослабнуть даже на мгновение. Мы — те немногие, кому была доверена священная обязанность обеспечить вечное правление Императора. Так тому и быть, чего бы это не стоило» – Феррус Манус, речь перед Железными Руками на Конклаве Горгона\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events",
+            ":eventId",
+            "comments"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "2"
+            },
+            {
+              "key": "eventId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Patch event set published",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"stateAction\" : \"PUBLISH_EVENT\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/admin/events/:eventId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "admin",
+            "events",
+            ":eventId"
+          ],
+          "variable": [
+            {
+              "key": "eventId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Post comment from user 2 to event 1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});\r",
+              "\r",
+              "const source = JSON.parse(pm.request.body.raw);\r",
+              "const target = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Комментарий должен содержать поля: id, text, eventId, author, created\", function () {\r",
+              "pm.expect(target).to.have.property('id');\r",
+              "pm.expect(target).to.have.property('text');\r",
+              "pm.expect(target).to.have.property('eventId');\r",
+              "pm.expect(target).to.have.property('author');\r",
+              "pm.expect(target).to.have.property('created');\r",
+              "\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+              "    pm.expect(target.id).to.not.be.null;\r",
+              "    pm.expect(target.text).to.be.a(\"string\");\r",
+              "    pm.expect(target.eventId).to.be.not.null;\r",
+              "    pm.expect(target.author).to.be.not.null;\r",
+              "    pm.expect(target.created).to.be.not.null;\r",
+              "\r",
+              "    pm.expect(source.text).equal(target.text, 'Текст комментария должен соответствовать указанному при создании');\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"text\" : \"«Слабость должна быть искоренена, чтобы человечество могло выжить. Только силе можно доверять, сыны мои. Наша воля должна быть словно сталь, наша решимость подобна адамантию; и эти истины не могут ослабнуть даже на мгновение. Мы — те немногие, кому была доверена священная обязанность обеспечить вечное правление Императора. Так тому и быть, чего бы это не стоило» – Феррус Манус, речь перед Железными Руками на Конклаве Горгона\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events",
+            ":eventId",
+            "comments"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "2"
+            },
+            {
+              "key": "eventId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get event with comments",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+              "    pm.response.to.have.status(200);  \r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});\r",
+              "\r",
+              "const target = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Событие должно содержать поле comments с соответствующими данными\", function () {\r",
+              "pm.expect(target).to.have.property('comments');\r",
+              "const comment = target.comments[0];\r",
+              "pm.expect(comment).to.have.property('id');\r",
+              "pm.expect(comment).to.have.property('text');\r",
+              "pm.expect(comment).to.have.property('eventId');\r",
+              "pm.expect(comment).to.have.property('author');\r",
+              "pm.expect(comment).to.have.property('created');\r",
+              "\r",
+              "\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Данные в ответе должны соответствовать исходным\", function () {\r",
+              "    pm.expect(target.comments).to.not.be.null;\r",
+              "    pm.expect(Array.isArray(target.comments)).to.be.true;\r",
+              "    pm.expect(target.comments.length).to.equal(1);\r",
+              "    \r",
+              "    const comment = target.comments[0];\r",
+              "\r",
+              "    pm.expect(comment.id).to.equal(1);\r",
+              "    pm.expect(comment.eventId).to.be.not.null;\r",
+              "    pm.expect(comment.text).to.be.a(\"string\");\r",
+              "    pm.expect(comment.author).to.be.not.null;\r",
+              "    pm.expect(comment.created).to.be.not.null;\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events/:eventId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events",
+            ":eventId"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "2"
+            },
+            {
+              "key": "eventId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Try patch comment from not author",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+              "    pm.response.to.have.status(409);\r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"text\" : \"«Если вы не в силах выдержать тот урон, что способен нанести вам противник, наступит время, когда вы потерпите поражение, и в своём поражении сделаете бесполезной жертву миллионов. Мы — Саламандры, и мы выдержим всё, дабы ни одна жертва, совершённая во имя той великой империи, которую мы стремимся построить, не оказалась напрасной»– Ксиафас Юрр, капеллан Саламандр\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events/:eventId/comments/:commentId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events",
+            ":eventId",
+            "comments",
+            ":commentId"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "1"
+            },
+            {
+              "key": "eventId",
+              "value": "1"
+            },
+            {
+              "key": "commentId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Try patch non-existent comment",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"text\" : \"«Если вы не в силах выдержать тот урон, что способен нанести вам противник, наступит время, когда вы потерпите поражение, и в своём поражении сделаете бесполезной жертву миллионов. Мы — Саламандры, и мы выдержим всё, дабы ни одна жертва, совершённая во имя той великой империи, которую мы стремимся построить, не оказалась напрасной»– Ксиафас Юрр, капеллан Саламандр\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events/:eventId/comments/:commentId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events",
+            ":eventId",
+            "comments",
+            ":commentId"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "2"
+            },
+            {
+              "key": "eventId",
+              "value": "1"
+            },
+            {
+              "key": "commentId",
+              "value": "1000"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Patch comment 1 from user 2 to event 1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+              "    pm.response.to.be.ok;    \r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});\r",
+              "\r",
+              "const source = JSON.parse(pm.request.body.raw);\r",
+              "const target = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Комментарий должен содержать поля: id, text, eventId, author, created\", function () {\r",
+              "pm.expect(target).to.have.property('id');\r",
+              "pm.expect(target).to.have.property('text');\r",
+              "pm.expect(target).to.have.property('eventId');\r",
+              "pm.expect(target).to.have.property('author');\r",
+              "pm.expect(target).to.have.property('created');\r",
+              "\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Данные в ответе должны соответствовать данным в запросе\", function () {\r",
+              "    pm.expect(target.id).to.not.be.null;\r",
+              "    pm.expect(target.text).to.be.a(\"string\");\r",
+              "    pm.expect(target.eventId).to.be.not.null;\r",
+              "    pm.expect(target.author).to.be.not.null;\r",
+              "    pm.expect(target.created).to.be.not.null;\r",
+              "\r",
+              "    pm.expect(source.text).equal(target.text, 'Текст комментария должен соответствовать указанному при создании');\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"text\" : \"«Если вы не в силах выдержать тот урон, что способен нанести вам противник, наступит время, когда вы потерпите поражение, и в своём поражении сделаете бесполезной жертву миллионов. Мы — Саламандры, и мы выдержим всё, дабы ни одна жертва, совершённая во имя той великой империи, которую мы стремимся построить, не оказалась напрасной»– Ксиафас Юрр, капеллан Саламандр\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events/:eventId/comments/:commentId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events",
+            ":eventId",
+            "comments",
+            ":commentId"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "2"
+            },
+            {
+              "key": "eventId",
+              "value": "1"
+            },
+            {
+              "key": "commentId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all comments to one event",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+              "    pm.response.to.have.status(200);  \r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});\r",
+              "\r",
+              "const target = pm.response.json()[0];\r",
+              "\r",
+              "pm.test(\"Запрос на участие должен содержать поля: id, text, eventId, author, created\", function () {\r",
+              "pm.expect(target).to.have.property('id');\r",
+              "pm.expect(target).to.have.property('text');\r",
+              "pm.expect(target).to.have.property('eventId');\r",
+              "pm.expect(target).to.have.property('author');\r",
+              "pm.expect(target).to.have.property('created');\r",
+              "});\r",
+              "\r",
+              "\r",
+              "pm.test(\"Данные в ответе должны соответствовать исходным\", function () {\r",
+              "    pm.expect(target.id).to.not.be.null;\r",
+              "    pm.expect(target.text).to.be.a(\"string\");\r",
+              "    pm.expect(target.eventId).to.not.be.null;\r",
+              "    pm.expect(target.author).to.be.not.null;\r",
+              "    pm.expect(target.created).to.be.not.null;\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events/:eventId/comments",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events",
+            ":eventId",
+            "comments"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "1"
+            },
+            {
+              "key": "eventId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Try delete non-existent comment",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {\r",
+              "    pm.response.to.have.status(404);\r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events/:eventId/comments/:commentId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events",
+            ":eventId",
+            "comments",
+            ":commentId"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "2"
+            },
+            {
+              "key": "eventId",
+              "value": "1"
+            },
+            {
+              "key": "commentId",
+              "value": "1000"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Try delete by not author",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {\r",
+              "    pm.response.to.have.status(409);\r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events/:eventId/comments/:commentId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events",
+            ":eventId",
+            "comments",
+            ":commentId"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "1"
+            },
+            {
+              "key": "eventId",
+              "value": "1"
+            },
+            {
+              "key": "commentId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete comment",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 204\", function () {\r",
+              "    pm.response.to.have.status(204);\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events/:eventId/comments/:commentId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events",
+            ":eventId",
+            "comments",
+            ":commentId"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "2"
+            },
+            {
+              "key": "eventId",
+              "value": "1"
+            },
+            {
+              "key": "commentId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get event with comment check delete",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {\r",
+              "    pm.response.to.have.status(200);  \r",
+              "    pm.response.to.be.withBody;\r",
+              "    pm.response.to.be.json;\r",
+              "});\r",
+              "\r",
+              "const target = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Событие должно содержать поле comments\", function () {\r",
+              "pm.expect(target).to.have.property('comments');\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Комментарии должны быть пустым массивом\", function () {\r",
+              "    pm.expect(target.comments).to.not.be.null;\r",
+              "    pm.expect(Array.isArray(target.comments)).to.be.true;\r",
+              "    pm.expect(target.comments.length).to.eql(0);\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/:userId/events/:eventId",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            ":userId",
+            "events",
+            ":eventId"
+          ],
+          "variable": [
+            {
+              "key": "userId",
+              "value": "1"
+            },
+            {
+              "key": "eventId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}

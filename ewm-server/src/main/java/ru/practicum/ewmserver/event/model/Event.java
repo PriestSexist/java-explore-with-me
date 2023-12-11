@@ -9,6 +9,7 @@ import ru.practicum.ewmserver.user.model.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -55,4 +56,6 @@ public class Event {
     private String title;
     @Transient
     private int views;
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    private List<Comment> comments;
 }

@@ -13,6 +13,7 @@ public class ErrorStrings {
     public static final String REQUEST_NOT_FOUND_BY_ID = "Request with id=%d was not found";
     public static final String EVENT_NOT_FOUND_BY_ID = "Event with id=%d was not found";
     public static final String CATEGORY_NOT_FOUND_BY_ID = "Category with id=%d was not found";
+    public static final String COMMENT_NOT_FOUND_BY_ID = "Comment with id=%d was not found";
     public static final String CANNOT_PUBLISH_EVENT_NOT_PENDING = "Cannot publish the event because it's not in the right state: PENDING";
     public static final String CANNOT_REJECT_EVENT_NOT_PENDING = "Cannot reject the event because it's not in the right state: PENDING";
     public static final String CANNOT_PUBLISH_EVENT_LESS_THEN_ONE_HOUR_ON_SITE = "Cannot publish the event because the event date should be at least an hour after publication";
@@ -28,4 +29,6 @@ public class ErrorStrings {
     public static final String CANT_CANCEL_NOT_OWNER = "Can't cancel because you're not owner";
     public static final String EVENT_DATE_2_HOURS_MIN_SHOULD_BE = "Field: eventDate. Error: должно содержать дату, которая еще не наступила. Value: ";
     public static final String PATCH_NOT_PENDING_STATE = "Only pending or canceled events can be changed";
+    public static final String NOT_OWNER_CHANGES_COMMENT = "User with id=%d is not the author of the comment with id=%d";
+    public static final String COMMENT_NOT_PUBLISHED_EVENT = "You can comment only published events";
 }
