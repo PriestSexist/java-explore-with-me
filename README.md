@@ -8,14 +8,14 @@ Java, Spring Boot, PostgreSQL, JPA(Hibernate), Maven, Docker.
 _______________________________________________________________
 The app consists of two docker microservises: main API and statistics service. The main API is divided into three parts: public, for authentificated users and andministrator endpoints.
 statistics service is divided into three micromodule:
-- main API;
--  |micromodule public
--  |micromodule authentificated users
--  |micromodule andministrator
+- main API
+-     |micromodule public
+-     |micromodule authentificated users
+-     |micromodule andministrator
 - statistics service: 
--  |micromodule Client
--  |micromodule Dto
--  |micromodule Server
+-     |micromodule Client
+-     |micromodule Dto
+-     |micromodule Server
 
 The interaction of modules is made through RestTemplate;
 
