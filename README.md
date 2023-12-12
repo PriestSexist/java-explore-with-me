@@ -26,8 +26,8 @@ _______________________________________________________________
 - [API сервис статистики](./ewm-stats-service-spec.json)
 - [API основной сервис](./ewm-main-service-spec.json)
 
-## Модель схемы базы данных сервиса
+## DB schema of main api
 ![Screenshot](schema.png)
 
-### Ссылка на PR:
+### PR:
 https://github.com/PriestSexist/java-explore-with-me/pull/4
