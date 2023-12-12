@@ -6,7 +6,7 @@ Java, Spring Boot, PostgreSQL, JPA(Hibernate), Maven, Docker.
 
 ## Architecture
 _______________________________________________________________
-The app consists of two docker microservises: main service(ewm-server) and statistics service(stat-server). 
+Web-service consists of two docker microservises: main service(ewm-server) and statistics service(stat-server). 
 The main service is divided into three parts: public, for authentificated users and andministrator endpoints.
 Statistics service is divided into three micromodule:
 - main service:
