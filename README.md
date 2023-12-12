@@ -24,8 +24,8 @@ The service is also ready for use on the Docker platform;
 _______________________________________________________________
 
 ## Endpoints
-- [main service API](./ewm-stats-service-spec.json)
-- [statistics service API](./ewm-main-service-spec.json)
+- [Main service API](./ewm-stats-service-spec.json)
+- [Statistics service API](./ewm-main-service-spec.json)
 
 ## DB schema of main api
 ![Screenshot](schema.png)
