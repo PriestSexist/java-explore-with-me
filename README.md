@@ -6,11 +6,12 @@ Java, Spring Boot, PostgreSQL, JPA(Hibernate), Maven, Docker.
 
 ## Architecture
 _______________________________________________________________
-The app consists of two docker microservises: main API and statistics service. The main API is divided into three parts: public, for authentificated users and andministrator endpoints.
-statistics service is divided into three micromodule:
-- main API
+The app consists of two docker microservises: main service(ewm-server) and statistics service(stat-server). 
+The main service is divided into three parts: public, for authentificated users and andministrator endpoints.
+Statistics service is divided into three micromodule:
+- main service:
 -     |public part
--     |authentificated users part
+-     |for authentificated users part
 -     |andministrator endpoints part
 - statistics service: 
 -     |micromodule Client
@@ -23,8 +24,8 @@ The service is also ready for use on the Docker platform;
 _______________________________________________________________
 
 ## Endpoints
-- [API сервис статистики](./ewm-stats-service-spec.json)
-- [API основной сервис](./ewm-main-service-spec.json)
+- [main service API](./ewm-stats-service-spec.json)
+- [statistics service API](./ewm-main-service-spec.json)
 
 ## DB schema of main api
 ![Screenshot](schema.png)
