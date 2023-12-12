@@ -23,7 +23,7 @@ The interaction of modules is made through RestTemplate;
 The service is also ready for use on the Docker platform;
 _______________________________________________________________
 
-## Launching
+## Requirements
 [Docker](https://www.docker.com/) is required as a minimum for the service to work, Linux system or WSL to run a service in a container. 
 
 ## Endpoints
