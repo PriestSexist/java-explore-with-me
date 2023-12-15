@@ -1,16 +1,19 @@
-# java-explore-with-me
+# Explore-with-me
+
+## About
 A RESTful web-service for posting and sharing events and find companions to participate in them. Users can post events, leave comments, register as participans, explore collections of events.
 
 ## Stack
-Java, Spring Boot, PostgreSQL, JPA(Hibernate), Maven, Docker.
+Java, Spring Boot, PostgreSQL, JPA(Hibernate), Maven, Docker, Lombok.
 
 ## Architecture
 _______________________________________________________________
-The app consists of two docker microservises: main API and statistics service. The main API is divided into three parts: public, for authentificated users and andministrator endpoints.
-statistics service is divided into three micromodule:
-- main API
+Web-service consists of two docker microservises: main service(ewm-server) and statistics service(stat-server). 
+Main service is divided into three parts: public, for authentificated users and andministrator endpoints.
+Statistics service is divided into three micromodule:
+- main service:
 -     |public part
--     |authentificated users part
+-     |for authentificated users part
 -     |andministrator endpoints part
 - statistics service: 
 -     |micromodule Client
@@ -22,9 +25,12 @@ The interaction of modules is made through RestTemplate;
 The service is also ready for use on the Docker platform;
 _______________________________________________________________
 
+## Requirements
+[Docker](https://www.docker.com/) is required as a minimum for the service to work, Linux system or WSL to run a service in a container. 
+
 ## Endpoints
-- [API сервис статистики](./ewm-stats-service-spec.json)
-- [API основной сервис](./ewm-main-service-spec.json)
+- [Main service API](./ewm-stats-service-spec.json)
+- [Statistics service API](./ewm-main-service-spec.json)
 
 ## DB schema of main api
 ![Screenshot](schema.png)
