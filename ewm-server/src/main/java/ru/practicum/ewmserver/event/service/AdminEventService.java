@@ -11,4 +11,6 @@ public interface AdminEventService {
     EventFullDto patchEvent(UpdateEventAdminRequest updateEventAdminRequest, int eventId);
 
     List<EventFullDto> getEvents(List<Integer> users, List<String> states, List<Integer> categories, LocalDateTime rangeStart, LocalDateTime rangeEnd, int from, int size);
+
+    void deleteComment(int commentId);
 }

@@ -24,5 +24,5 @@ public interface PrivateEventService {
 
     void deleteComment(int userId, int eventId, int commentId);
 
-    List<CommentDto> getComments(int userId, int eventId, int from, int size);
+    List<CommentDto> getComments(int userId, int eventId, int from, int size, boolean forCurrentUser);
 }

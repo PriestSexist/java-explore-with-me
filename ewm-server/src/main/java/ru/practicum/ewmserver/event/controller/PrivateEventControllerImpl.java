@@ -100,9 +100,10 @@ public class PrivateEventControllerImpl {
     public List<CommentDto> getComments(@PathVariable @PositiveOrZero int userId,
                                         @PathVariable @PositiveOrZero int eventId,
                                         @RequestParam(defaultValue = "0") @PositiveOrZero int from,
-                                        @RequestParam(defaultValue = "10") @Positive int size) {
+                                        @RequestParam(defaultValue = "10") @Positive int size,
+                                        @RequestParam(defaultValue = "false") @Positive boolean forCurrentUser) {
         log.debug("Вызван метод getComments");
-        return privateEventService.getComments(userId, eventId, from, size);
+        return privateEventService.getComments(userId, eventId, from, size, forCurrentUser);
     }
 
 }

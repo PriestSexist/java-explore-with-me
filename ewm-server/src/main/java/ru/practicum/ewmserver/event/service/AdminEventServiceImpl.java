@@ -18,6 +18,7 @@ import ru.practicum.ewmserver.event.mapper.EventMapper;
 import ru.practicum.ewmserver.event.model.Event;
 import ru.practicum.ewmserver.event.model.EventState;
 import ru.practicum.ewmserver.event.model.ModeratorEventState;
+import ru.practicum.ewmserver.event.storage.CommentRepository;
 import ru.practicum.ewmserver.event.storage.EventRepository;
 import ru.practicum.ewmserver.request.model.RequestStatus;
 import ru.practicum.ewmserver.request.storage.RequestRepository;
@@ -37,6 +38,7 @@ public class AdminEventServiceImpl implements AdminEventService {
     private final EventRepository eventRepository;
     private final CategoryRepository categoryRepository;
     private final RequestRepository requestRepository;
+    private final CommentRepository commentRepository;
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED)
@@ -164,5 +166,14 @@ public class AdminEventServiceImpl implements AdminEventService {
         return events.getContent().stream()
                 .map(event -> EventMapper.createEventFullDto(event, requestRepository.countRequestByEventIdAndStatus(event.getId(), RequestStatus.CONFIRMED)))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteComment(int commentId) {
+        if (!commentRepository.existsById(commentId)) {
+            throw new EntityNotFoundException(String.format(COMMENT_NOT_FOUND_BY_ID, commentId));
+        }
+        commentRepository.deleteById(commentId);
     }
 }

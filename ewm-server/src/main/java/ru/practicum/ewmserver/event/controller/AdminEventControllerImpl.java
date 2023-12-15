@@ -43,4 +43,10 @@ public class AdminEventControllerImpl {
         log.debug("Вызван метод getEventsAdmin");
         return adminEventService.getEvents(users, states, categories, rangeStart, rangeEnd, from, size);
     }
+
+    @DeleteMapping("/comments/{commentId}")
+    public void deleteComment(@PathVariable int commentId) {
+        log.debug("Вызван метод deleteComment");
+        adminEventService.deleteComment(commentId);
+    }
 }

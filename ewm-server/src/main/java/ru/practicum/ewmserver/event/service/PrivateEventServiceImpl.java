@@ -1,6 +1,7 @@
 package ru.practicum.ewmserver.event.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -243,7 +244,6 @@ public class PrivateEventServiceImpl implements PrivateEventService {
     @Transactional(propagation = Propagation.REQUIRED)
     public CommentDto patchComment(CommentRequest commentRequest, int userId, int eventId, int commentId) {
 
-
         if (!userRepository.existsById(userId)) {
             throw new EntityNotFoundException(String.format(USER_NOT_FOUND_BY_ID, userId));
         }
@@ -288,9 +288,10 @@ public class PrivateEventServiceImpl implements PrivateEventService {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
-    public List<CommentDto> getComments(int userId, int eventId, int from, int size) {
+    public List<CommentDto> getComments(int userId, int eventId, int from, int size, boolean forCurrentUser) {
 
         PageRequest pageRequest = PageRequest.of(from > 0 ? from / size : 0, size);
+        Page<Comment> comments;
 
         if (!userRepository.existsById(userId)) {
             throw new EntityNotFoundException(String.format(USER_NOT_FOUND_BY_ID, userId));
@@ -300,10 +301,13 @@ public class PrivateEventServiceImpl implements PrivateEventService {
             throw new EntityNotFoundException(String.format(EVENT_NOT_FOUND_BY_ID, eventId));
         }
 
-        return commentRepository.findAll(pageRequest).stream()
+        if (forCurrentUser) {
+            comments = commentRepository.getAllByAuthorId(userId, pageRequest);
+        } else {
+            comments = commentRepository.findAll(pageRequest);
+        }
+        return comments.stream()
                 .map(CommentMapper::createCommentDto)
                 .collect(Collectors.toList());
     }
-
-
 }
