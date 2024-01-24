@@ -1,7 +1,7 @@
 # Explore-with-me
 
 ## About
-A RESTful web-service for posting and sharing events and find companions to participate in them. Users can post events, leave comments, register as participans, explore collections of events.
+A RESTful web-service for posting and sharing events and find companions to participate in them. Users can post events, leave comments, register as participants, explore collections of events.
 
 ## Stack
 Java, Spring Boot, PostgreSQL, JPA(Hibernate), Maven, Docker, Lombok.
